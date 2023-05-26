@@ -49,6 +49,7 @@ class MyHomePage extends StatefulWidget {
 
 class _MyHomePageState extends State<MyHomePage> {
   int _counter = 0;
+  String _buttonPressedText = 'Please press a button';
 
   void _incrementCounter() {
     setState(() {
@@ -96,7 +97,11 @@ class _MyHomePageState extends State<MyHomePage> {
                           color: Colors.white,
                         )),
                   ),
-                  onPressed: () {},
+                  onPressed: () {
+                    setState(() {
+                      _buttonPressedText = 'You have pressed Sign Up';
+                    });
+                  },
                 ),
               ),
               Container(
@@ -106,7 +111,11 @@ class _MyHomePageState extends State<MyHomePage> {
                     backgroundColor: Colors.red,
                     foregroundColor: Colors.white,
                   ),
-                  onPressed: () {},
+                  onPressed: () {
+                    setState(() {
+                      _buttonPressedText = 'You have pressed Elevated Button';
+                    });
+                  },
                   child: const Text('Elevated button'),
                 ),
               ),
@@ -120,12 +129,16 @@ class _MyHomePageState extends State<MyHomePage> {
                       color: Colors.green,
                     ),
                   ),
-                  onPressed: () {},
+                  onPressed: () {
+                    setState(() {
+                      _buttonPressedText = 'You have pressed Outlined Button';
+                    });
+                  },
                   child: const Text('Outlined button'),
                 ),
               ),
-              const Text('You have clicked Text Button',
-                  style: TextStyle(color: Colors.red, fontSize: 20)),
+              Text(_buttonPressedText,
+                  style: const TextStyle(color: Colors.red, fontSize: 15)),
               const Text('You have pushed the button this many times:',
                   style: TextStyle(
                     color: Colors.green,
@@ -145,7 +158,12 @@ class _MyHomePageState extends State<MyHomePage> {
                     ),
                   ),
                 ),
-                onPressed: () {},
+                onPressed: () {
+                  setState(() {
+                    _buttonPressedText =
+                        'You have pressed the below Flat button';
+                  });
+                },
               ),
             ],
           ),
