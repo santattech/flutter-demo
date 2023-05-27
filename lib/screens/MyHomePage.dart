@@ -79,11 +79,9 @@ class _MyHomePageState extends State<MyHomePage> {
                     foregroundColor: Colors.white,
                   ),
                   onPressed: () {
-                    setState(() {
-                      _buttonPressedText = 'You have pressed Elevated Button';
-                    });
+                    Navigator.pushNamed(context, '/third');
                   },
-                  child: const Text('Elevated button'),
+                  child: const Text('Go to screen3'),
                 ),
               ),
               Container(
