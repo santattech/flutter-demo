@@ -9,6 +9,20 @@ class Screen3 extends StatelessWidget {
       ),
       body: Column(children: <Widget>[
         Container(
+          decoration: BoxDecoration(
+            border: Border.all(width: 2, color: Colors.yellow),
+            color: Color.fromARGB(255, 35, 26, 26),
+          ),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            children: const [
+              FilledCard(title: "Avg Speed"),
+              FilledCard(title: "Max Speed"),
+              FilledCard(title: "Avg Speed")
+            ],
+          ),
+        ),
+        Container(
             decoration: BoxDecoration(
               border: Border.all(width: 2, color: Colors.yellow),
               color: Colors.black,
@@ -25,9 +39,43 @@ class Screen3 extends StatelessWidget {
   }
 }
 
+class FilledCard extends StatelessWidget {
+  const FilledCard({super.key, required this.title});
+
+  final String title;
+
+  @override
+  Widget build(BuildContext context) {
+    return Center(
+      child: Card(
+        elevation: 20,
+        clipBehavior: Clip.antiAlias,
+        shadowColor: Colors.black,
+        margin: EdgeInsets.all(8.0),
+        shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.all(Radius.circular(10.0))),
+        color: Theme.of(context).colorScheme.surfaceVariant,
+        child: const SizedBox(
+          width: 100,
+          height: 100,
+          child: Padding(
+              padding: EdgeInsets.only(left: 10, right: 10, top: 10),
+              child: Text(
+                'Avg. Speed',
+                textAlign: TextAlign.center,
+                style: TextStyle(fontWeight: FontWeight.normal, fontSize: 10),
+              )),
+        ),
+      ),
+    );
+  }
+}
+
 Widget _tripButtons(btnText, context) {
   return Container(
     margin: const EdgeInsets.all(20),
+    padding: const EdgeInsets.all(10),
+    height: 60,
     child: ElevatedButton(
       style: ElevatedButton.styleFrom(
         backgroundColor: const Color.fromARGB(255, 45, 215, 245),
@@ -36,7 +84,7 @@ Widget _tripButtons(btnText, context) {
       onPressed: () {
         Navigator.pop(context);
       },
-      child: Text(btnText),
+      child: Text(btnText, style: TextStyle(fontSize: 20)),
     ),
   );
 }
