@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:learningdart/screens/Screen2.dart';
 import 'screens/MyHomePage.dart';
-import 'screens/Screen2.dart';
+import 'screens/Screen3.dart';
 
 void main() {
   runApp(const MyApp());
@@ -29,8 +29,9 @@ class MyApp extends StatelessWidget {
       ),
       initialRoute: '/',
       routes: {
-        '/': (context) => MyHomePage(title: 'Home'),
+        '/': (context) => const MyHomePage(title: 'Home'),
         '/second': (context) => Screen2(),
+        '/third': (context) => Screen3(),
       },
     );
   }
