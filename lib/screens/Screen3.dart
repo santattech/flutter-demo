@@ -4,27 +4,108 @@ class Screen3 extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(
-          title: const Text("Screen 3"),
+      appBar: AppBar(
+        title: const Text("Speedometer"),
+      ),
+      body: Column(children: <Widget>[
+        Container(
+          decoration: BoxDecoration(
+            border: Border.all(width: 2, color: Colors.yellow),
+            color: Color.fromARGB(255, 35, 26, 26),
+          ),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            children: const [
+              FilledCard(title: "Avg Speed"),
+              FilledCard(title: "Max Speed"),
+              FilledCard(title: "Avg Speed")
+            ],
+          ),
         ),
-        body: Center(
-          child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: <Widget>[
-                Container(
-                  margin: const EdgeInsets.all(5),
-                  child: ElevatedButton(
-                    style: ElevatedButton.styleFrom(
-                      backgroundColor: const Color.fromARGB(255, 63, 218, 99),
-                      foregroundColor: Colors.white,
-                    ),
-                    onPressed: () {
-                      Navigator.pop(context);
-                    },
-                    child: const Text('Go Back'),
-                  ),
-                ),
-              ]),
-        ));
+        Container(
+            decoration: BoxDecoration(
+              border: Border.all(width: 2, color: Colors.yellow),
+              color: Colors.black,
+            ),
+            child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                children: <Widget>[
+                  _tripButtons('Start Trip', context),
+                  _tripButtons('End Trip', context),
+                ])),
+        travelTimeContainer()
+      ]),
+    );
   }
+}
+
+class FilledCard extends StatelessWidget {
+  const FilledCard({super.key, required this.title});
+
+  final String title;
+
+  @override
+  Widget build(BuildContext context) {
+    return Center(
+      child: Card(
+        elevation: 20,
+        clipBehavior: Clip.antiAlias,
+        shadowColor: Colors.black,
+        margin: EdgeInsets.all(8.0),
+        shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.all(Radius.circular(10.0))),
+        color: Theme.of(context).colorScheme.surfaceVariant,
+        child: const SizedBox(
+          width: 100,
+          height: 100,
+          child: Padding(
+              padding: EdgeInsets.only(left: 10, right: 10, top: 10),
+              child: Text(
+                'Avg. Speed',
+                textAlign: TextAlign.center,
+                style: TextStyle(fontWeight: FontWeight.normal, fontSize: 10),
+              )),
+        ),
+      ),
+    );
+  }
+}
+
+Widget _tripButtons(btnText, context) {
+  return Container(
+    margin: const EdgeInsets.all(20),
+    padding: const EdgeInsets.all(10),
+    height: 60,
+    child: ElevatedButton(
+      style: ElevatedButton.styleFrom(
+        backgroundColor: const Color.fromARGB(255, 45, 215, 245),
+        foregroundColor: Colors.black,
+      ),
+      onPressed: () {
+        Navigator.pop(context);
+      },
+      child: Text(btnText, style: TextStyle(fontSize: 20)),
+    ),
+  );
+}
+
+travelTimeContainer() {
+  return Container(
+      decoration: BoxDecoration(
+        border: Border.all(width: 2, color: Colors.yellow),
+        color: Colors.black,
+      ),
+      child: Row(mainAxisAlignment: MainAxisAlignment.end, children: <Widget>[
+        Container(
+          margin: const EdgeInsets.all(20),
+          decoration: const BoxDecoration(
+            borderRadius: BorderRadius.all(Radius.circular(15)),
+            color: Colors.black,
+          ),
+          child: const Text(
+            '01:30:25',
+            style: TextStyle(fontSize: 20, color: Colors.white),
+          ),
+        )
+      ]));
 }
