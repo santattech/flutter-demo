@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:auto_size_text/auto_size_text.dart';
 
 class Screen3 extends StatelessWidget {
   @override
@@ -8,6 +9,35 @@ class Screen3 extends StatelessWidget {
         title: const Text("Speedometer"),
       ),
       body: Column(children: <Widget>[
+        Container(
+            height: 200,
+            decoration: BoxDecoration(
+              border: Border.all(width: 2, color: Colors.yellow),
+              color: Color.fromARGB(255, 35, 26, 26),
+            ),
+            child: const Row(
+              mainAxisAlignment: MainAxisAlignment.end,
+              children: [
+                Padding(
+                    padding: EdgeInsets.all(10),
+                    child: AutoSizeText('60',
+                        maxLines: 1,
+                        minFontSize: 100,
+                        style: TextStyle(
+                            fontWeight: FontWeight.w600,
+                            color: Colors.cyan,
+                            fontFamily: 'Orbitron'))),
+                Column(
+                  mainAxisAlignment: MainAxisAlignment.end,
+                  children: [
+                    Padding(
+                        padding: EdgeInsets.only(bottom: 25, right: 10),
+                        child: Text('km/h',
+                            style: TextStyle(color: Colors.cyan, fontSize: 15)))
+                  ],
+                )
+              ],
+            )),
         Container(
           decoration: BoxDecoration(
             border: Border.all(width: 2, color: Colors.yellow),
