@@ -16,3 +16,7 @@ Also you can try https://flutterlab.io, you can integrate Github with this onlin
 
 ### How to add different fonts
 https://github.com/santattech/flutter-demo/pull/8/files
+
+### How to add splash screen
+https://github.com/santattech/flutter-demo/pull/9/files
+
