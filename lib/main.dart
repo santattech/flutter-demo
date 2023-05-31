@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:learningdart/screens/Screen2.dart';
-import 'screens/MyHomePage.dart';
+import 'package:learningdart/screens/splash_scree.dart';
 import 'screens/Screen3.dart';
 
 void main() {
@@ -29,7 +29,7 @@ class MyApp extends StatelessWidget {
       ),
       initialRoute: '/',
       routes: {
-        '/': (context) => const MyHomePage(title: 'Home'),
+        '/': (context) => SplashScreen(),
         '/second': (context) => Screen2(),
         '/third': (context) => Screen3(),
       },
