@@ -43,9 +43,9 @@ class Screen3 extends StatelessWidget {
             border: Border.all(width: 2, color: Colors.yellow),
             color: Color.fromARGB(255, 35, 26, 26),
           ),
-          child: Row(
+          child: const Row(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            children: const [
+            children: [
               FilledCard(title: "Avg Speed"),
               FilledCard(title: "Max Speed"),
               FilledCard(title: "Avg Speed")
@@ -82,7 +82,7 @@ class FilledCard extends StatelessWidget {
         clipBehavior: Clip.antiAlias,
         shadowColor: Colors.black,
         margin: EdgeInsets.all(8.0),
-        shape: RoundedRectangleBorder(
+        shape: const RoundedRectangleBorder(
             borderRadius: BorderRadius.all(Radius.circular(10.0))),
         color: Theme.of(context).colorScheme.surfaceVariant,
         child: const SizedBox(

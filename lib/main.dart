@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:learningdart/screens/Screen2.dart';
 import 'package:learningdart/screens/splash_scree.dart';
-import 'screens/MyHomePage.dart';
 import 'screens/Screen3.dart';
 
 void main() {
@@ -15,7 +15,6 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Flutter Demo',
-      home: SplashScreen(),
       theme: ThemeData(
         // This is the theme of your application.
         //
@@ -28,12 +27,12 @@ class MyApp extends StatelessWidget {
         // is not restarted.
         primarySwatch: Colors.blue,
       ),
-      // initialRoute: '/',
-      // routes: {
-      //   '/': (context) => const MyHomePage(title: 'Home'),
-      //   '/second': (context) => Screen2(),
-      //   '/third': (context) => Screen3(),
-      // },
+      initialRoute: '/',
+      routes: {
+        '/': (context) => SplashScreen(),
+        '/second': (context) => Screen2(),
+        '/third': (context) => Screen3(),
+      },
     );
   }
 }
