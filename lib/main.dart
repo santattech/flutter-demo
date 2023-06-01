@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:learningdart/screens/ContactPage.dart';
 import 'package:learningdart/screens/Screen2.dart';
 import 'package:learningdart/screens/splash_scree.dart';
 import 'screens/Screen3.dart';
@@ -32,6 +33,7 @@ class MyApp extends StatelessWidget {
         '/': (context) => SplashScreen(),
         '/second': (context) => Screen2(),
         '/third': (context) => Screen3(),
+        '/contact': (context) => ContactPage(title: 'Contact')
       },
     );
   }

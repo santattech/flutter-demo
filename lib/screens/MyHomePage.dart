@@ -62,14 +62,14 @@ class _MyHomePageState extends State<MyHomePage> {
                   child: Container(
                     color: Colors.black,
                     padding: const EdgeInsets.all(10),
-                    child: const Text('Go to Screen 2',
+                    child: const Text('Go to Contact',
                         style: TextStyle(
                           fontSize: 20,
                           color: Colors.white,
                         )),
                   ),
                   onPressed: () {
-                    Navigator.pushNamed(context, '/second');
+                    Navigator.pushNamed(context, '/contact');
                   },
                 ),
               ),
