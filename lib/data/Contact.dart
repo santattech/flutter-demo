@@ -1,12 +1,16 @@
-class Contact(
-  String name,
-  String email,
-  String phoneNumber,
+import 'package:meta/meta.dart';
 
-  // @requried 
+class Contact {
+  String name;
+  String email;
+  String phoneNumber;
+  bool isFavourite;
+
+  // requried
   Contact({
-    @required this.name,
-    @required this.email,
-    @required this.phoneNumber,
-  })
-)
+    required this.name,
+    required this.email,
+    required this.phoneNumber,
+    this.isFavourite = false,
+  });
+}
