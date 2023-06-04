@@ -13,15 +13,17 @@ class ContactTile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ListTile(
-      title: Text(contact.name),
-      subtitle: Text(contact.email),
-      trailing: IconButton(
-        icon: Icon(
-          contact.isFavourite ? Icons.star : Icons.star_border,
-          color: contact.isFavourite ? Colors.amber : Colors.grey,
+    return Material(
+      child: ListTile(
+        title: Text(contact.name),
+        subtitle: Text(contact.email),
+        trailing: IconButton(
+          icon: Icon(
+            contact.isFavourite ? Icons.star : Icons.star_border,
+            color: contact.isFavourite ? Colors.amber : Colors.grey,
+          ),
+          onPressed: onFavouritePressed,
         ),
-        onPressed: onFavouritePressed,
       ),
     );
   }
