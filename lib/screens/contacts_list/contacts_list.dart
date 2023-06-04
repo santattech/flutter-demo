@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:faker/faker.dart';
 import 'package:learningdart/data/Contact.dart';
+import 'package:learningdart/widget/ContactTile.dart';
 
 class ConatactListPage extends StatefulWidget {
   @override
@@ -33,22 +34,13 @@ class _ConatactListPageState extends State<ConatactListPage> {
         child: ListView.builder(
           itemCount: _contacts.length,
           itemBuilder: (context, index) {
-            return ListTile(
-              title: Text(_contacts[index].name),
-              subtitle: Text(_contacts[index].email),
-              trailing: IconButton(
-                icon: Icon(
-                  _contacts[index].isFavourite ? Icons.star : Icons.star_border,
-                  color:
-                      _contacts[index].isFavourite ? Colors.amber : Colors.grey,
-                ),
-                onPressed: () {
-                  setState(() {
-                    _contacts[index].isFavourite =
-                        !_contacts[index].isFavourite;
-                  });
-                },
-              ),
+            return ContactTile(
+              contact: _contacts[index],
+              onFavouritePressed: () {
+                setState(() {
+                  _contacts[index].isFavourite = !_contacts[index].isFavourite;
+                });
+              },
             );
           },
         ),
