@@ -34,7 +34,14 @@ class _ConatactListPageState extends State<ConatactListPage> {
         child: ListView.builder(
           itemCount: _contacts.length,
           itemBuilder: (context, index) {
-            return ContactTile(contact: _contacts[index]);
+            return ContactTile(
+              contact: _contacts[index],
+              onFavouritePressed: () {
+                setState(() {
+                  _contacts[index].isFavourite = !_contacts[index].isFavourite;
+                });
+              },
+            );
           },
         ),
       ),
