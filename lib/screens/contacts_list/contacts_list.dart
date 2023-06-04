@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:scoped_model/scoped_model.dart';
 import 'package:learningdart/model/contacts_model.dart';
-import 'package:learningdart/widget/ContactTile.dart';
+import 'package:learningdart/widget/contact_tile.dart';
 
 class ConatactListPage extends StatefulWidget {
   @override
