@@ -15,7 +15,7 @@ class Screen3 extends StatelessWidget {
               border: Border.all(width: 2, color: Colors.yellow),
               color: Color.fromARGB(255, 35, 26, 26),
             ),
-            child: const Row(
+            child: Row(
               mainAxisAlignment: MainAxisAlignment.end,
               children: [
                 Padding(
@@ -43,7 +43,7 @@ class Screen3 extends StatelessWidget {
             border: Border.all(width: 2, color: Colors.yellow),
             color: Color.fromARGB(255, 35, 26, 26),
           ),
-          child: const Row(
+          child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
               FilledCard(title: "Avg Speed"),
