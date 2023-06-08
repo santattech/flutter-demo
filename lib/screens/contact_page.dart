@@ -13,10 +13,19 @@ class ContactPage extends StatelessWidget {
     return ScopedModel(
       model: ContactsModel(),
       child: MaterialApp(
-        title: 'Contacts',
-        theme: ThemeData(primarySwatch: Colors.blue),
-        home: ConatactListPage(),
-      ),
+          title: 'Contacts',
+          theme: ThemeData(primarySwatch: Colors.blue),
+          home: Scaffold(
+            appBar: AppBar(title: const Text('Contacts')),
+            body: ConatactListPage(),
+            floatingActionButton: FloatingActionButton(
+              onPressed: () {
+                Navigator.pushNamed(context, '/contact_form');
+              },
+              tooltip: 'Add',
+              child: const Icon(Icons.add),
+            ),
+          )),
     );
   }
 }
