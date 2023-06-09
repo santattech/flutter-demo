@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:learningdart/data/Contact.dart';
+import 'package:learningdart/model/contacts_model.dart';
+import 'package:scoped_model/scoped_model.dart';
 
 class ContactForm extends StatefulWidget {
   const ContactForm({super.key, required this.title});
@@ -27,22 +30,42 @@ class _ContactFormState extends State<ContactForm> {
               key: _formKey,
               child: ListView(
                 children: [
+                  const SizedBox(height: 10.0),
                   TextFormField(
                     decoration: const InputDecoration(
                       icon: Icon(Icons.person),
                       hintText: "Put the person's good name",
                       labelText: 'Name *',
                     ),
+                    validator: (value) {
+                      if (value == null || value.isEmpty) {
+                        return 'Please enter some name';
+                      }
+                      return null;
+                    },
                     onSaved: (value) => _name = '$value',
                   ),
+                  const SizedBox(height: 10.0),
                   TextFormField(
                     decoration: const InputDecoration(
                       icon: Icon(Icons.email),
                       hintText: "Put the person's email",
                       labelText: 'Email *',
                     ),
+                    validator: (value) {
+                      final _regExp = RegExp(
+                          "([!#-'*+/-9=?A-Z^-~-]+(\.[!#-'*+/-9=?A-Z^-~-]+)*|\"\(\[\]!#-[^-~ \t]|(\\[\t -~]))+\")@([!#-'*+/-9=?A-Z^-~-]+(\.[!#-'*+/-9=?A-Z^-~-]+)*|\[[\t -Z^-~]*])");
+
+                      if (value == null || value.isEmpty) {
+                        return 'Please enter some name';
+                      } else if (!_regExp.hasMatch(value)) {
+                        return 'Please enter a valid email';
+                      }
+                      return null;
+                    },
                     onSaved: (value) => _email = '$value',
                   ),
+                  const SizedBox(height: 10.0),
                   TextFormField(
                     decoration: const InputDecoration(
                       icon: Icon(Icons.phone),
@@ -51,6 +74,7 @@ class _ContactFormState extends State<ContactForm> {
                     ),
                     onSaved: (value) => _phoneNumber = '$value',
                   ),
+                  const SizedBox(height: 10.0),
                   ElevatedButton(
                     style: ElevatedButton.styleFrom(
                       backgroundColor: const Color.fromARGB(255, 65, 153, 225),
@@ -59,12 +83,22 @@ class _ContactFormState extends State<ContactForm> {
                     ),
                     onPressed: () {
                       final form = _formKey.currentState;
-                      // if (form != null && !form.validate()) {
-                      //   // Invalid!
-                      //   return;
-                      // }
+                      if (form != null && !form.validate()) {
+                        // Invalid!
+                        return;
+                      }
 
-                      if (form != null) form.save();
+                      if (form != null) {
+                        form.save();
+
+                        final newContact = Contact(
+                          name: _name,
+                          email: _email,
+                          phoneNumber: _phoneNumber,
+                        );
+                        ScopedModel.of<ContactsModel>(context)
+                            .addContact(newContact);
+                      }
                     },
                     child: const Text('Save'),
                   )

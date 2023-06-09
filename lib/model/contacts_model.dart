@@ -13,6 +13,11 @@ class ContactsModel extends Model {
 
   List<Contact> get contacts => _contacts;
 
+  void addContact(Contact newContact) {
+    _contacts.add(newContact);
+    notifyListeners();
+  }
+
   void changeFavouriteStatus(int index) {
     contacts[index].isFavourite = !contacts[index].isFavourite;
   }
