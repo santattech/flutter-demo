@@ -11,18 +11,13 @@ class ConatactListPage extends StatefulWidget {
 class _ConatactListPageState extends State<ConatactListPage> {
   Widget build(BuildContext context) {
     return ScopedModelDescendant<ContactsModel>(
+        // runs when notifyListeners() is called from the model
         builder: (context, child, model) {
       return ListView.builder(
           itemCount: model.contacts.length,
           itemBuilder: (context, index) {
             return ContactTile(
-              contact: model.contacts[index],
-              onFavouritePressed: () {
-                setState(() {
-                  model.contacts[index].isFavourite =
-                      !model.contacts[index].isFavourite;
-                });
-              },
+              contactIndex: index,
             );
           });
     });

@@ -20,5 +20,7 @@ class ContactsModel extends Model {
 
   void changeFavouriteStatus(int index) {
     contacts[index].isFavourite = !contacts[index].isFavourite;
+
+    notifyListeners();
   }
 }
