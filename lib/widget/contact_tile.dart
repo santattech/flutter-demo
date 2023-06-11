@@ -41,6 +41,9 @@ class ContactTile extends StatelessWidget {
       child: Material(
         child: ListTile(
           title: Text(displayedContact.name),
+          leading: CircleAvatar(
+            child: Text(displayedContact.name[0]),
+          ),
           subtitle: Text(displayedContact.email),
           trailing: IconButton(
               icon: Icon(

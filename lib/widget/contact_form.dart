@@ -36,6 +36,7 @@ class _ContactFormState extends State<ContactForm> {
               key: _formKey,
               child: ListView(
                 children: [
+                  _buildContactImage(),
                   const SizedBox(height: 10.0),
                   TextFormField(
                     decoration: const InputDecoration(
@@ -117,5 +118,10 @@ class _ContactFormState extends State<ContactForm> {
             )),
       ),
     );
+  }
+
+  Widget _buildContactImage() {
+    final halfSized = MediaQuery.of(context).size.width / 2;
+    return CircleAvatar(radius: halfSized /2, child: Text('A'),)
   }
 }
