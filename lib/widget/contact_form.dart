@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:scoped_model/scoped_model.dart';
 import 'package:learningdart/data/Contact.dart';
 import 'package:learningdart/model/contacts_model.dart';
-import 'package:scoped_model/scoped_model.dart';
+
+ContactsModel contactsModel = ContactsModel();
 
 class ContactForm extends StatefulWidget {
   const ContactForm({super.key, required this.title});
@@ -19,13 +21,12 @@ class _ContactFormState extends State<ContactForm> {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-        debugShowCheckedModeBanner: false,
+    return ScopedModel<ContactsModel>(
+      model: contactsModel,
+      child: MaterialApp(
         title: 'Contact form',
         home: Scaffold(
-            appBar: AppBar(
-              title: const Text('Contact Form'),
-            ),
+            appBar: AppBar(title: const Text('Contact form')),
             body: Form(
               key: _formKey,
               child: ListView(
@@ -90,20 +91,26 @@ class _ContactFormState extends State<ContactForm> {
 
                       if (form != null) {
                         form.save();
+                        //var model = ContactsModel.of(context);
 
                         final newContact = Contact(
-                          name: _name,
-                          email: _email,
-                          phoneNumber: _phoneNumber,
+                          name: _name.toString(),
+                          email: _email.toString(),
+                          phoneNumber: _phoneNumber.toString(),
                         );
-                        ScopedModel.of<ContactsModel>(context)
-                            .addContact(newContact);
+
+                        contactsModel.addContact(newContact);
+                        // ScopedModel.of<ContactsModel>(context)
+                        //     .addContact(newContact);
+                        Navigator.pop(context);
                       }
                     },
                     child: const Text('Save'),
-                  )
+                  ),
                 ],
               ),
-            )));
+            )),
+      ),
+    );
   }
 }
