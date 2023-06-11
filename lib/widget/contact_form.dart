@@ -26,7 +26,12 @@ class _ContactFormState extends State<ContactForm> {
       child: MaterialApp(
         title: 'Contact form',
         home: Scaffold(
-            appBar: AppBar(title: const Text('Contact form')),
+            appBar: AppBar(
+              title: const Text('Contact form'),
+              leading: BackButton(
+                onPressed: () => Navigator.of(context).pop(),
+              ),
+            ),
             body: Form(
               key: _formKey,
               child: ListView(
