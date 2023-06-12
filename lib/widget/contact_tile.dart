@@ -41,22 +41,32 @@ class ContactTile extends StatelessWidget {
       child: Material(
         child: ListTile(
           title: Text(displayedContact.name),
-          leading: CircleAvatar(
-            child: Text(displayedContact.name[0]),
-          ),
+          leading: _buildCircleAvatarContent(displayedContact),
           subtitle: Text(displayedContact.email),
-          trailing: IconButton(
-              icon: Icon(
-                displayedContact.isFavourite ? Icons.star : Icons.star_border,
-                color:
-                    displayedContact.isFavourite ? Colors.amber : Colors.grey,
-              ),
-              onPressed: () {
-                model.changeFavouriteStatus(contactIndex);
-              }),
+          trailing: _buildFavouriteStarContent(displayedContact, model),
+          onTap: () => {},
         ),
       ),
     );
     //});
+  }
+
+  Hero _buildCircleAvatarContent(Contact displayedContact) {
+    return Hero(
+        tag: displayedContact.hashCode,
+        child: CircleAvatar(
+          child: Text(displayedContact.name[0]),
+        ));
+  }
+
+  IconButton _buildFavouriteStarContent(Contact displayedContact, model) {
+    return IconButton(
+        icon: Icon(
+          displayedContact.isFavourite ? Icons.star : Icons.star_border,
+          color: displayedContact.isFavourite ? Colors.amber : Colors.grey,
+        ),
+        onPressed: () {
+          model.changeFavouriteStatus(contactIndex);
+        });
   }
 }

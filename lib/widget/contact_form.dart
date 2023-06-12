@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:scoped_model/scoped_model.dart';
 import 'package:learningdart/data/Contact.dart';
 import 'package:learningdart/model/contacts_model.dart';
@@ -18,6 +19,7 @@ class _ContactFormState extends State<ContactForm> {
   String? _name;
   String? _email;
   String? _phoneNumber;
+  bool isEditmode = false;
 
   @override
   Widget build(BuildContext context) {
@@ -122,6 +124,28 @@ class _ContactFormState extends State<ContactForm> {
 
   Widget _buildContactImage() {
     final halfSized = MediaQuery.of(context).size.width / 2;
-    return CircleAvatar(radius: halfSized /2, child: Text('A'),)
+    return GestureDetector(
+        onTap: _onContactPictureTapped(),
+        child: CircleAvatar(
+          radius: halfSized / 2,
+          child: _buildCircleAvatarContent(halfSized),
+        ));
+  }
+
+  _onContactPictureTapped() {
+    final ImagePicker picker = ImagePicker();
+    final imageFile = picker.pickImage(source: ImageSource.gallery);
+    print(imageFile);
+  }
+
+  Widget _buildCircleAvatarContent(halfSized) {
+    if (isEditmode) {
+      return const Text(
+        'A',
+        style: TextStyle(fontSize: 50.0, fontWeight: FontWeight.bold),
+      );
+    } else {
+      return Icon(Icons.person, size: halfSized / 2);
+    }
   }
 }
