@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:scoped_model/scoped_model.dart';
@@ -20,6 +22,7 @@ class _ContactFormState extends State<ContactForm> {
   String? _email;
   String? _phoneNumber;
   bool isEditmode = false;
+  File _contactImageFile = File('');
 
   @override
   Widget build(BuildContext context) {
@@ -38,6 +41,7 @@ class _ContactFormState extends State<ContactForm> {
               key: _formKey,
               child: ListView(
                 children: [
+                  const SizedBox(height: 5.0),
                   _buildContactImage(),
                   const SizedBox(height: 10.0),
                   TextFormField(
@@ -125,27 +129,42 @@ class _ContactFormState extends State<ContactForm> {
   Widget _buildContactImage() {
     final halfSized = MediaQuery.of(context).size.width / 2;
     return GestureDetector(
-        onTap: _onContactPictureTapped(),
+        onTap: _onContactPictureTapped,
         child: CircleAvatar(
           radius: halfSized / 2,
           child: _buildCircleAvatarContent(halfSized),
         ));
   }
 
-  _onContactPictureTapped() {
+  _onContactPictureTapped() async {
     final ImagePicker picker = ImagePicker();
-    final imageFile = picker.pickImage(source: ImageSource.gallery);
-    print(imageFile);
+    final imageFile = await picker.pickImage(source: ImageSource.gallery);
+    print(imageFile!.path);
+    setState(() {
+      _contactImageFile = File(imageFile.path);
+    });
   }
 
   Widget _buildCircleAvatarContent(halfSized) {
     if (isEditmode) {
-      return const Text(
-        'A',
-        style: TextStyle(fontSize: 50.0, fontWeight: FontWeight.bold),
-      );
+      if (_contactImageFile == null) {
+        return const Text(
+          'A',
+          style: TextStyle(fontSize: 50.0, fontWeight: FontWeight.bold),
+        );
+      } else {
+        return ClipOval(
+            child: AspectRatio(
+                aspectRatio: 1, child: Image.file(_contactImageFile)));
+      }
     } else {
-      return Icon(Icons.person, size: halfSized / 2);
+      if (_contactImageFile == null) {
+        return Icon(Icons.person, size: halfSized / 2);
+      } else {
+        return ClipOval(
+            child: AspectRatio(
+                aspectRatio: 1, child: Image.file(_contactImageFile)));
+      }
     }
   }
 }
