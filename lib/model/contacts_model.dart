@@ -8,7 +8,7 @@ class ContactsModel extends Model {
     return Contact(
         name: "${faker.person.firstName()} ${faker.person.lastName()}",
         email: faker.internet.freeEmail(),
-        phoneNumber: '88235262728');
+        phoneNumber: faker.randomGenerator.numberOfLength(10));
   });
 
   /// Wraps [ScopedModel.of] for this [Model]. See [ScopedModel.of] for more
@@ -21,8 +21,16 @@ class ContactsModel extends Model {
     notifyListeners();
   }
 
+  void updateContact(Contact updatedContact, int? contactIndex) {
+    if (contactIndex == null) return;
+
+    _contacts[contactIndex] = updatedContact;
+    print(contacts[contactIndex].toMap());
+    notifyListeners();
+  }
+
   void changeFavouriteStatus(int index) {
-    contacts[index].isFavourite = !contacts[index].isFavourite;
+    _contacts[index].isFavourite = !contacts[index].isFavourite;
 
     notifyListeners();
   }
