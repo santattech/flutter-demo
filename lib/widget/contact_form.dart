@@ -40,9 +40,9 @@ class _ContactFormState extends State<ContactForm> {
       contactIndex = widget.editedContactIndex;
     }
 
-    return ScopedModel<ContactsModel>(
-      model: contactsModel,
-      child: MaterialApp(
+    return ScopedModelDescendant<ContactsModel>(
+        builder: (context, child, model) {
+      return MaterialApp(
         debugShowCheckedModeBanner: false,
         title: 'Contact form',
         home: Scaffold(
@@ -114,7 +114,6 @@ class _ContactFormState extends State<ContactForm> {
 
                   if (form != null) {
                     form.save();
-                    //var model = ContactsModel.of(context);
 
                     final newContact = Contact(
                       name: _name.toString(),
@@ -123,13 +122,11 @@ class _ContactFormState extends State<ContactForm> {
                     );
 
                     if (widget.editedContactIndex == null) {
-                      contactsModel.addContact(newContact);
+                      model.addContact(newContact);
                     } else {
-                      contactsModel.updateContact(newContact, contactIndex);
+                      model.updateContact(newContact, contactIndex);
                     }
 
-                    // ScopedModel.of<ContactsModel>(context)
-                    //     .addContact(newContact);
                     Navigator.pop(context);
                   }
                 },
@@ -138,7 +135,7 @@ class _ContactFormState extends State<ContactForm> {
             ],
           ),
         )),
-      ),
-    );
+      );
+    });
   }
 }
