@@ -35,7 +35,7 @@ class MyApp extends StatelessWidget {
         '/second': (context) => Screen2(),
         '/third': (context) => Screen3(),
         '/contact': (context) => const ContactPage(title: 'Contact'),
-        '/contact_form': (context) => const ContactForm(title: 'Add Contact'),
+        '/contact_form': (context) => ContactForm(title: 'Add Contact'),
       },
     );
   }
