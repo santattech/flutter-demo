@@ -138,7 +138,7 @@ class LoginScreenState extends ConsumerState<LoginScreen> {
         if (e.toString() == 'Exception: Wrong creds') {
           ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
             content: Text('Please check your credentials'),
-            duration: Duration(seconds: 10),
+            duration: Duration(seconds: 20),
             backgroundColor: Colors.red,
           ));
         }
@@ -146,7 +146,7 @@ class LoginScreenState extends ConsumerState<LoginScreen> {
         else {
           ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
             content: Text('Something went wrong'),
-            duration: Duration(seconds: 10),
+            duration: Duration(seconds: 20),
             backgroundColor: Colors.red,
           ));
         }

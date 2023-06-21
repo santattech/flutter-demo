@@ -23,10 +23,12 @@ class LoginService {
 
   Map<String, dynamic> parseResponseBody(http.Response response) {
     print(response.statusCode);
-    if (response.statusCode == 200) {
+    if (response.statusCode == 201) {
       print("response ${jsonDecode(response.body)}");
       return jsonDecode(response.body) as Map<String, dynamic>;
     } else if (response.statusCode == 404) {
+      throw Exception('Wrong creds');
+    } else if (response.statusCode == 401) {
       throw Exception('Wrong creds');
     } else {
       throw Exception('Something went wrong');

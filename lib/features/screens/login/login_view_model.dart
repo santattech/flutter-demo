@@ -10,7 +10,7 @@ class LoginViewModel {
   Future<void> login(String email, String password) async {
     /// Prepare data
     Map<String, String> data = {"email": email, "password": password};
-    const String apiUrl = 'http://localhost:3000/api/v1/user_sessions';
+    const String apiUrl = AppSecret.loginUrl;
     Map<String, String> headerData = {"Content-Type": 'application/json'};
 
     try {
