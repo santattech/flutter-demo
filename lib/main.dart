@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:learningdart/screens/contact_page.dart';
 import 'package:learningdart/screens/Screen2.dart';
 import 'package:learningdart/screens/splash_scree.dart';
@@ -6,7 +7,7 @@ import 'package:learningdart/widget/contact_form.dart';
 import 'screens/Screen3.dart';
 
 void main() {
-  runApp(const MyApp());
+  runApp(const ProviderScope(child: MyApp()));
 }
 
 class MyApp extends StatelessWidget {

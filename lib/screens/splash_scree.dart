@@ -1,5 +1,6 @@
 //import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:learningdart/features/screens/login/login_screen.dart';
 import 'package:learningdart/screens/MyHomePage.dart';
 
 class SplashScreen extends StatefulWidget {
@@ -17,7 +18,8 @@ class _SplashScreen extends State<SplashScreen> {
   void initState() {
     Future.delayed(Duration(seconds: splashtime), () async {
       Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) {
-        return const MyHomePage(title: 'Home');
+        //return const MyHomePage(title: 'Home');
+        return LoginScreen();
       }));
     });
 
