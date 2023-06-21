@@ -1,6 +1,10 @@
+import 'dart:core';
+import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:learningdart/features/screens/login/login_view_model.dart';
 import 'package:learningdart/widget/submit_button.dart';
+import 'package:learningdart/screens/MyHomePage.dart';
 // import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 final helloWorldProvider = Provider((ref) => 'Hello world');
@@ -43,12 +47,10 @@ class LoginScreenState extends ConsumerState<LoginScreen> {
         body: SafeArea(
             child: Align(
                 alignment: Alignment.bottomCenter,
-                child: SingleChildScrollView(
+                child: Center(
                     child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    const SizedBox(
-                      height: 50,
-                    ),
                     const Padding(
                       padding: EdgeInsets.only(left: 24),
                       child: Text(
@@ -71,6 +73,17 @@ class LoginScreenState extends ConsumerState<LoginScreen> {
                                 hintText: "Your email",
                                 labelText: 'Username *',
                               ),
+                              validator: (value) {
+                                final _regExp = RegExp(
+                                    "([!#-'*+/-9=?A-Z^-~-]+(\.[!#-'*+/-9=?A-Z^-~-]+)*|\"\(\[\]!#-[^-~ \t]|(\\[\t -~]))+\")@([!#-'*+/-9=?A-Z^-~-]+(\.[!#-'*+/-9=?A-Z^-~-]+)*|\[[\t -Z^-~]*])");
+
+                                if (value == null || value.isEmpty) {
+                                  return 'Please enter some name';
+                                } else if (!_regExp.hasMatch(value)) {
+                                  return 'Please enter a valid email';
+                                }
+                                return null;
+                              },
                               autovalidateMode:
                                   AutovalidateMode.onUserInteraction,
                               keyboardType: TextInputType.emailAddress,
@@ -95,7 +108,10 @@ class LoginScreenState extends ConsumerState<LoginScreen> {
                               height: 20,
                             ),
 
-                            SubmitButton(),
+                            SubmitButton(
+                              buttonText: 'Login',
+                              onTapFunc: login,
+                            ),
                           ],
                         )),
                   ],
@@ -104,5 +120,47 @@ class LoginScreenState extends ConsumerState<LoginScreen> {
     );
   }
 
-  void login() async {}
+  Future<void> login() async {
+    // check if the form inputs are valid
+    final form = _formKey.currentState;
+
+    if (form!.validate()) {
+      try {
+        await ref.read(loginViewModelProvider).login(
+            _emailTextEditingController.text,
+            _passwordTextEditingController.text);
+
+        Navigator.push(context, MaterialPageRoute(builder: (context) {
+          return const MyHomePage(title: 'Home');
+        }));
+      } catch (e) {
+        // handle error here
+        if (e.toString() == 'Exception: Wrong creds') {
+          ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+            content: Text('Please check your credentials'),
+            duration: Duration(seconds: 10),
+            backgroundColor: Colors.red,
+          ));
+        }
+        // for the 500 error
+        else {
+          ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+            content: Text('Something went wrong'),
+            duration: Duration(seconds: 10),
+            backgroundColor: Colors.red,
+          ));
+        }
+      }
+    }
+  }
 }
+
+      // .onError((error, stackTrace) {
+      //   /// Invalid credentials - Unauthorised
+
+      //   ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+      //     content: Text('error'),
+      //     duration: Duration(seconds: 10),
+      //     backgroundColor: Colors.red,
+      //   ));
+      // });
