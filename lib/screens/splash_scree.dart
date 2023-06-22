@@ -2,6 +2,7 @@
 import 'package:flutter/material.dart';
 import 'package:learningdart/features/screens/login/login_screen.dart';
 import 'package:learningdart/screens/MyHomePage.dart';
+import 'package:learningdart/shared/app_secret.dart';
 
 class SplashScreen extends StatefulWidget {
   @override
@@ -18,8 +19,12 @@ class _SplashScreen extends State<SplashScreen> {
   void initState() {
     Future.delayed(Duration(seconds: splashtime), () async {
       Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) {
-        //return const MyHomePage(title: 'Home');
-        return LoginScreen();
+        print(AppSecret.accessToken);
+        if (AppSecret.accessToken == null) {
+          return const LoginScreen();
+        } else {
+          return const MyHomePage(title: 'Home');
+        }
       }));
     });
 
