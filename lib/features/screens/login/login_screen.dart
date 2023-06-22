@@ -1,5 +1,6 @@
 import 'dart:core';
 import 'package:flutter/material.dart';
+import 'package:learningdart/shared/app_secret.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:learningdart/features/screens/login/login_view_model.dart';
 import 'package:learningdart/widget/submit_button.dart';
@@ -15,6 +16,21 @@ class LoginScreen extends ConsumerStatefulWidget {
 }
 
 class LoginScreenState extends ConsumerState<LoginScreen> {
+  // @override
+  // void initState() {
+  //   Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) {
+  //     print(AppSecret.accessToken);
+  //     if (AppSecret.accessToken == null) {
+  //       return const LoginScreen();
+  //     } else {
+  //       return const MyHomePage(title: 'Home');
+  //     }
+  //   }));
+
+  //   super.initState();
+  // }
+  int waitTime = 1;
+
   final TextEditingController _emailTextEditingController =
       TextEditingController();
 
@@ -22,13 +38,6 @@ class LoginScreenState extends ConsumerState<LoginScreen> {
       TextEditingController();
 
   final _formKey = GlobalKey<FormState>();
-
-  @override
-  void initState() {
-    super.initState();
-    // ref can be accessible anywhere in all lifecylcles of stateful widget
-    ref.read(helloWorldProvider);
-  }
 
   @override
   void dispose() {
@@ -152,13 +161,3 @@ class LoginScreenState extends ConsumerState<LoginScreen> {
     }
   }
 }
-
-      // .onError((error, stackTrace) {
-      //   /// Invalid credentials - Unauthorised
-
-      //   ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-      //     content: Text('error'),
-      //     duration: Duration(seconds: 10),
-      //     backgroundColor: Colors.red,
-      //   ));
-      // });

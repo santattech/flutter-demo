@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:learningdart/shared/app_secret.dart';
 import 'package:learningdart/features/screens/login/login_screen.dart';
+import 'package:learningdart/features/screens/profile/profile_screen.dart';
 
 class NavDrawer extends StatelessWidget {
   @override
@@ -28,7 +29,7 @@ class NavDrawer extends StatelessWidget {
           ListTile(
             leading: const Icon(Icons.verified_user),
             title: const Text('Profile'),
-            onTap: () => {Navigator.of(context).pop()},
+            onTap: () => redirectToProfile(context),
           ),
           ListTile(
             leading: const Icon(Icons.local_gas_station_sharp),
@@ -53,7 +54,14 @@ class NavDrawer extends StatelessWidget {
 
 void redirectToLogin(context) {
   AppSecret.accessToken = null;
+
   Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) {
     return const LoginScreen();
+  }));
+}
+
+void redirectToProfile(context) {
+  Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) {
+    return ProfileScreen();
   }));
 }
