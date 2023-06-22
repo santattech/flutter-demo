@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:learningdart/shared/app_secret.dart';
+import 'package:learningdart/features/screens/login/login_screen.dart';
 
 class NavDrawer extends StatelessWidget {
   @override
@@ -41,10 +43,17 @@ class NavDrawer extends StatelessWidget {
           ListTile(
             leading: const Icon(Icons.exit_to_app),
             title: const Text('Logout'),
-            onTap: () => {Navigator.of(context).pop()},
+            onTap: () => redirectToLogin(context),
           ),
         ],
       ),
     );
   }
+}
+
+void redirectToLogin(context) {
+  AppSecret.accessToken = null;
+  Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) {
+    return const LoginScreen();
+  }));
 }
