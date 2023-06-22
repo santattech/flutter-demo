@@ -1,18 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:learningdart/screens/Screen2.dart';
-import 'package:learningdart/screens/Screen3.dart';
+import 'package:learningdart/widget/nav_drawer.dart';
 
 class MyHomePage extends StatefulWidget {
   const MyHomePage({super.key, required this.title});
-
-  // This widget is the home page of your application. It is stateful, meaning
-  // that it has a State object (defined below) that contains fields that affect
-  // how it looks.
-
-  // This class is the configuration for the state. It holds the values (in this
-  // case the title) provided by the parent (in this case the App widget) and
-  // used by the build method of the State. Fields in a Widget subclass are
-  // always marked "final".
 
   final String title;
 
@@ -21,20 +11,6 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  int _counter = 0;
-  String _buttonPressedText = 'Please press a button';
-
-  void _incrementCounter() {
-    setState(() {
-      // This call to setState tells the Flutter framework that something has
-      // changed in this State, which causes it to rerun the build method below
-      // so that the display can reflect the updated values. If we changed
-      // _counter without calling setState(), then the build method would not be
-      // called again, and so nothing would appear to happen.
-      _counter++;
-    });
-  }
-
   @override
   Widget build(BuildContext context) {
     // This method is rerun every time setState is called, for instance as done
@@ -45,10 +21,12 @@ class _MyHomePageState extends State<MyHomePage> {
     // than having to individually change instances of widgets.
     return MaterialApp(
       home: Scaffold(
+        drawer: NavDrawer(),
         appBar: AppBar(
           // Here we take the value from the MyHomePage object that was created by
           // the App.build method, and use it to set our appbar title.
           title: Text(widget.title),
+          backgroundColor: Colors.purple,
         ),
         body: Center(
           // Center is a layout widget. It takes a single child and positions it
@@ -73,105 +51,15 @@ class _MyHomePageState extends State<MyHomePage> {
                   },
                 ),
               ),
-              Container(
-                margin: const EdgeInsets.all(5),
-                child: ElevatedButton(
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor: Colors.red,
-                    foregroundColor: Colors.white,
-                  ),
-                  onPressed: () {
-                    Navigator.pushNamed(context, '/third');
-                  },
-                  child: const Text('Go to screen3'),
-                ),
-              ),
-              Container(
-                margin: const EdgeInsets.all(5),
-                child: OutlinedButton(
-                  style: OutlinedButton.styleFrom(
-                    shape: const StadiumBorder(),
-                    side: const BorderSide(
-                      width: 1,
-                      color: Colors.green,
-                    ),
-                  ),
-                  onPressed: () {
-                    setState(() {
-                      _buttonPressedText = 'You have pressed Outlined Button';
-                    });
-                  },
-                  child: const Text('Outlined button'),
-                ),
-              ),
-              Text(_buttonPressedText,
-                  style: const TextStyle(color: Colors.red, fontSize: 15)),
-              const Text('You have pushed the button this many times:',
+              const Text('Welcome, Santanu',
                   style: TextStyle(
                     color: Colors.green,
+                    fontSize: 15,
                   )),
-              Text(
-                '$_counter',
-                style: Theme.of(context).textTheme.headlineMedium,
-              ),
-              TextButton(
-                child: Container(
-                  color: const Color.fromARGB(255, 231, 149, 16),
-                  padding: const EdgeInsets.fromLTRB(20, 20, 20, 20),
-                  child: const Text(
-                    'Flat Button',
-                    style: TextStyle(
-                      color: Colors.white,
-                    ),
-                  ),
-                ),
-                onPressed: () {
-                  setState(() {
-                    _buttonPressedText =
-                        'You have pressed the below Flat button';
-                  });
-                },
-              ),
             ],
           ),
         ),
-        floatingActionButton: FloatingActionButton(
-          onPressed: _incrementCounter,
-          tooltip: 'Increment',
-          child: const Icon(Icons.add),
-        ), // This trailing comma makes auto-formatting nicer for build methods.
       ),
     );
-  }
-}
-
-/* A Flutter implementation of the last frame of the splashscreen animation */
-class CustomAppBar extends StatelessWidget {
-  const CustomAppBar({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    Widget titleSection = Row(
-      children: [
-        Padding(
-          padding: const EdgeInsets.only(left: 12, right: 4),
-          child: ClipRRect(
-            borderRadius: BorderRadius.circular(36.0),
-            child: Image.asset(
-              'images/splashIcon.png',
-              width: 72.0,
-              height: 72.0,
-              fit: BoxFit.fill,
-            ),
-          ),
-        ),
-        const Padding(
-          padding: EdgeInsets.only(top: 3),
-          child: Text("I am working on this app",
-              style: TextStyle(color: Colors.black54, fontSize: 24)),
-        ),
-      ],
-    );
-    return titleSection;
   }
 }
