@@ -1,9 +1,9 @@
 class UserModel {
-  int? id;
+  String? id;
   String? accessToken;
   String? email;
-  DateTime? lastSignInAt;
-  DateTime? currentSignInAt;
+  String? lastSignInAt;
+  String? currentSignInAt;
 
   UserModel({
     this.id,
@@ -14,13 +14,16 @@ class UserModel {
   });
 
   UserModel.fromJson(Map<String, dynamic> json) {
-    id = json['id'];
+    id = json['data']['id'];
+    print(json);
 
-    accessToken = json['meta']['auth_token'];
+    if (json['meta'] != null) {
+      accessToken = json['meta']['auth_token'];
+    }
 
-    email = json['email'];
-    lastSignInAt = json['lastSignInAt'];
-    currentSignInAt = json['currentSignInAt'];
+    email = json['data']['attributes']['email'];
+    lastSignInAt = json['data']['attributes']['lastSignInAt'];
+    currentSignInAt = json['data']['attributes']['currentSignInAt'];
   }
 
   Map<String, dynamic> toJson() {
