@@ -6,8 +6,6 @@ import 'package:learningdart/features/screens/login/login_view_model.dart';
 import 'package:learningdart/widget/submit_button.dart';
 import 'package:learningdart/screens/MyHomePage.dart';
 
-final helloWorldProvider = Provider((ref) => 'Hello world');
-
 class LoginScreen extends ConsumerStatefulWidget {
   const LoginScreen({Key? key}) : super(key: key);
 
@@ -16,21 +14,6 @@ class LoginScreen extends ConsumerStatefulWidget {
 }
 
 class LoginScreenState extends ConsumerState<LoginScreen> {
-  // @override
-  // void initState() {
-  //   Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) {
-  //     print(AppSecret.accessToken);
-  //     if (AppSecret.accessToken == null) {
-  //       return const LoginScreen();
-  //     } else {
-  //       return const MyHomePage(title: 'Home');
-  //     }
-  //   }));
-
-  //   super.initState();
-  // }
-  int waitTime = 1;
-
   final TextEditingController _emailTextEditingController =
       TextEditingController();
 
@@ -47,8 +30,6 @@ class LoginScreenState extends ConsumerState<LoginScreen> {
   }
 
   Widget build(BuildContext context) {
-    final String value = ref.watch(helloWorldProvider);
-
     return Container(
       child: Scaffold(
         body: SafeArea(
@@ -145,7 +126,7 @@ class LoginScreenState extends ConsumerState<LoginScreen> {
         if (e.toString() == 'Exception: Wrong creds') {
           ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
             content: Text('Please check your credentials'),
-            duration: Duration(seconds: 20),
+            duration: Duration(seconds: 5),
             backgroundColor: Colors.red,
           ));
         }
@@ -153,7 +134,7 @@ class LoginScreenState extends ConsumerState<LoginScreen> {
         else {
           ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
             content: Text('Something went wrong'),
-            duration: Duration(seconds: 20),
+            duration: Duration(seconds: 5),
             backgroundColor: Colors.red,
           ));
         }

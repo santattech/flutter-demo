@@ -23,6 +23,8 @@ class LoginViewModel {
 
       AppSecret.accessToken = apiResponse["meta"]['auth_token'];
       user = UserModel.fromJson(apiResponse);
+      print('********************');
+      print(user);
       if (user?.accessToken?.isEmpty ?? true) {
         throw Exception('Access is not given');
       }
