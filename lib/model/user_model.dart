@@ -4,6 +4,7 @@ class UserModel {
   String? email;
   String? lastSignInAt;
   String? currentSignInAt;
+  String? updatedAt;
 
   UserModel({
     this.id,
@@ -11,6 +12,7 @@ class UserModel {
     this.email,
     this.currentSignInAt,
     this.lastSignInAt,
+    this.updatedAt,
   });
 
   UserModel.fromJson(Map<String, dynamic> json) {
@@ -24,6 +26,7 @@ class UserModel {
     email = json['data']['attributes']['email'];
     lastSignInAt = json['data']['attributes']['lastSignInAt'];
     currentSignInAt = json['data']['attributes']['currentSignInAt'];
+    updatedAt = json['data']['attributes']['updatedAt'];
   }
 
   Map<String, dynamic> toJson() {
@@ -34,6 +37,7 @@ class UserModel {
     data['email'] = email;
     data['lastSignInAt'] = lastSignInAt;
     data['currentSignInAt'] = currentSignInAt;
+    data['updatedAt'] = updatedAt;
 
     return data;
   }

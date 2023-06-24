@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:learningdart/features/screens/login/login_screen.dart';
+import 'package:learningdart/features/screens/profile/password_screen.dart';
 import 'package:learningdart/screens/contact_page.dart';
 import 'package:learningdart/features/screens/login/login_screen.dart';
 import 'package:learningdart/screens/splash_scree.dart';
@@ -38,6 +39,7 @@ class MyApp extends StatelessWidget {
         '/third': (context) => Screen3(),
         '/contact': (context) => const ContactPage(title: 'Contact'),
         '/contact_form': (context) => ContactForm(title: 'Add Contact'),
+        '/updatePassword': (context) => const PasswordScreen(),
       },
     );
   }

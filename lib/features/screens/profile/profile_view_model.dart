@@ -8,21 +8,23 @@ class ProfileViewModel {
 
   ProfileViewModel(this.profileService);
   @override
-  Future<void> getUser() async {
+  Future<void> updatePassword(String password, String confirmPassword) async {
     /// Prepare header
-    const String apiUrl = AppSecret.getUserUrl;
-    Map<String, String> headerData = {
-      "Content-Type": 'application/json',
-      'Authorization': AppSecret.accessToken
+    const String apiUrl = AppSecret.resetPasswordUrl;
+    Map<String, String> headerData = {'Authorization': AppSecret.accessToken};
+    // prepare body
+    Map<String, String> data = {
+      "password": password,
+      "confirm_password": confirmPassword
     };
-    UserModel user;
+    print(password);
+    print(confirmPassword);
+    print(data);
 
     try {
-      /// login call using email and password in body
-      Map<String, dynamic> apiResponse =
-          await profileService.getUser(apiUrl, headers: headerData);
-
-      user = UserModel.fromJson(apiResponse);
+      /// reset password call using confirm_password and password in body
+      await profileService.resetPassword(apiUrl,
+          body: data, headers: headerData);
     } catch (e) {
       print(e);
       rethrow;

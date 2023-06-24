@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:http/http.dart' as http;
+import 'package:learningdart/shared/reponse_code.dart';
 
 /// [ProfileService] is responsible for calling sign in API
 
@@ -8,19 +9,6 @@ class ProfileService {
   final http.Client client;
 
   ProfileService(this.client);
-
-  // for the GetUser API
-  Future<Map<String, dynamic>> getUser(String url,
-      {Map<String, String>? headers}) async {
-    try {
-      /// HTTP GET request
-      http.Response response =
-          await client.get(Uri.parse(url), headers: headers);
-      return parseResponseBody(response);
-    } catch (e) {
-      rethrow;
-    }
-  }
 
   // For the ResetPassword API
   Future<Map<String, dynamic>> resetPassword(String url,
@@ -40,12 +28,12 @@ class ProfileService {
     if (response.statusCode == 200) {
       print("response ${jsonDecode(response.body)}");
       return jsonDecode(response.body) as Map<String, dynamic>;
-    } else if (response.statusCode == 404) {
-      throw Exception('Wrong creds');
+    } else if (response.statusCode == 422) {
+      throw Exception(ResponseCode.unprocessable['code']);
     } else if (response.statusCode == 401) {
-      throw Exception('Unauthorize');
+      throw Exception(ResponseCode.unauthorized['code']);
     } else {
-      throw Exception('Something went wrong');
+      throw Exception(ResponseCode.internalError['code']);
     }
   }
 }
