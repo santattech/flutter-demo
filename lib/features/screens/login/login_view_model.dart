@@ -1,6 +1,7 @@
 import 'package:learningdart/features/data/login/login_service.dart';
 import 'package:learningdart/shared/app_secret.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:learningdart/model/user_model.dart';
 
 class LoginViewModel {
   final LoginService loginService;
@@ -14,11 +15,21 @@ class LoginViewModel {
     Map<String, String> headerData = {"Content-Type": 'application/json'};
 
     try {
+      UserModel? user;
+
       /// login call using email and password in body
       Map<String, dynamic> apiResponse =
           await loginService.signIn(apiUrl, body: data, headers: headerData);
 
       AppSecret.accessToken = apiResponse["meta"]['auth_token'];
+      user = UserModel.fromJson(apiResponse);
+      //user = UserModel.fromJson(apiResponse['attributes']);
+//      print(user?.email);
+      print('********************');
+
+      if (user?.accessToken?.isEmpty ?? true) {
+        throw Exception('Access is not given');
+      }
     } catch (e) {
       print(e);
       rethrow;

@@ -1,37 +1,45 @@
 import 'dart:core';
 import 'package:flutter/material.dart';
-import 'package:learningdart/shared/app_secret.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:learningdart/features/screens/login/login_view_model.dart';
+import 'package:learningdart/features/screens/profile/profile_view_model.dart';
+import 'package:learningdart/shared/reponse_code.dart';
 import 'package:learningdart/widget/submit_button.dart';
-import 'package:learningdart/screens/MyHomePage.dart';
+import 'package:learningdart/features/screens/profile/profile_screen.dart';
 
-class LoginScreen extends ConsumerStatefulWidget {
-  const LoginScreen({Key? key}) : super(key: key);
+class PasswordScreen extends ConsumerStatefulWidget {
+  const PasswordScreen({Key? key}) : super(key: key);
 
   @override
-  LoginScreenState createState() => LoginScreenState();
+  PasswordScreenState createState() => PasswordScreenState();
 }
 
-class LoginScreenState extends ConsumerState<LoginScreen> {
-  final TextEditingController _emailTextEditingController =
+class PasswordScreenState extends ConsumerState<PasswordScreen> {
+  final TextEditingController _passwordTextEditingController =
       TextEditingController();
 
-  final TextEditingController _passwordTextEditingController =
+  final TextEditingController _confirmPasswordTextEditingController =
       TextEditingController();
 
   final _formKey = GlobalKey<FormState>();
 
   @override
   void dispose() {
-    _emailTextEditingController.dispose();
     _passwordTextEditingController.dispose();
+    _confirmPasswordTextEditingController.dispose();
     super.dispose();
   }
 
   Widget build(BuildContext context) {
     return Container(
       child: Scaffold(
+        appBar: AppBar(
+          title: const Text("Update password"),
+          backgroundColor: Colors.purple,
+          leading: IconButton(
+            icon: const Icon(Icons.arrow_back, color: Colors.white12),
+            onPressed: () => Navigator.of(context).pop(),
+          ),
+        ),
         body: SafeArea(
             child: Align(
                 alignment: Alignment.bottomCenter,
@@ -42,9 +50,9 @@ class LoginScreenState extends ConsumerState<LoginScreen> {
                     const Padding(
                       padding: EdgeInsets.only(left: 24),
                       child: Text(
-                        "Login screen",
+                        "Update your password",
                         style: TextStyle(
-                            color: Colors.blueAccent,
+                            color: Color.fromARGB(255, 24, 8, 69),
                             fontSize: 28,
                             fontWeight: FontWeight.w500),
                       ),
@@ -53,38 +61,28 @@ class LoginScreenState extends ConsumerState<LoginScreen> {
                         key: _formKey,
                         child: Column(
                           children: [
-                            // field for email
-                            TextFormField(
-                              controller: _emailTextEditingController,
-                              decoration: const InputDecoration(
-                                icon: Icon(Icons.email),
-                                hintText: "Your email",
-                                labelText: 'Username *',
-                              ),
-                              validator: (value) {
-                                final _regExp = RegExp(
-                                    "([!#-'*+/-9=?A-Z^-~-]+(\.[!#-'*+/-9=?A-Z^-~-]+)*|\"\(\[\]!#-[^-~ \t]|(\\[\t -~]))+\")@([!#-'*+/-9=?A-Z^-~-]+(\.[!#-'*+/-9=?A-Z^-~-]+)*|\[[\t -Z^-~]*])");
-
-                                if (value == null || value.isEmpty) {
-                                  return 'Please enter some name';
-                                } else if (!_regExp.hasMatch(value)) {
-                                  return 'Please enter a valid email';
-                                }
-                                return null;
-                              },
-                              autovalidateMode:
-                                  AutovalidateMode.onUserInteraction,
-                              keyboardType: TextInputType.emailAddress,
-                            ),
-
                             // field for password
 
                             TextFormField(
                               controller: _passwordTextEditingController,
                               decoration: const InputDecoration(
                                 icon: Icon(Icons.password),
-                                hintText: "Your password",
+                                hintText: "Your new password",
                                 labelText: 'Password *',
+                              ),
+                              obscureText: true,
+                              autovalidateMode:
+                                  AutovalidateMode.onUserInteraction,
+                            ),
+
+                            // field for password
+
+                            TextFormField(
+                              controller: _confirmPasswordTextEditingController,
+                              decoration: const InputDecoration(
+                                icon: Icon(Icons.password),
+                                hintText: "Confirm new password",
+                                labelText: 'Confirm password *',
                               ),
                               obscureText: true,
                               autovalidateMode:
@@ -97,8 +95,8 @@ class LoginScreenState extends ConsumerState<LoginScreen> {
                             ),
 
                             SubmitButton(
-                              buttonText: 'Login',
-                              onTapFunc: login,
+                              buttonText: 'Update',
+                              onTapFunc: updatePassword,
                             ),
                           ],
                         )),
@@ -108,24 +106,25 @@ class LoginScreenState extends ConsumerState<LoginScreen> {
     );
   }
 
-  Future<void> login() async {
+  Future<void> updatePassword() async {
     // check if the form inputs are valid
     final form = _formKey.currentState;
 
     if (form!.validate()) {
       try {
-        await ref.read(loginViewModelProvider).login(
-            _emailTextEditingController.text,
-            _passwordTextEditingController.text);
+        await ref.read(profileViewModelProvider).updatePassword(
+            _passwordTextEditingController.text,
+            _confirmPasswordTextEditingController.text);
 
         Navigator.push(context, MaterialPageRoute(builder: (context) {
-          return const MyHomePage(title: 'Home');
+          return const ProfileScreen();
         }));
       } catch (e) {
         // handle error here
-        if (e.toString() == 'Exception: Wrong creds') {
+        print(e.toString());
+        if (e.toString() == ResponseCode.unauthorized['exc']) {
           ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-            content: Text('Please check your credentials'),
+            content: Text('Access Denied'),
             duration: Duration(seconds: 5),
             backgroundColor: Colors.red,
           ));
