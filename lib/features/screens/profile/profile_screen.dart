@@ -6,10 +6,8 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:learningdart/features/screens/profile/password_screen.dart';
 import 'package:learningdart/model/user_model.dart';
 import 'package:learningdart/widget/nav_drawer.dart';
-import 'package:learningdart/features/screens/profile/profile_view_model.dart';
 import 'package:http/http.dart' as http;
 import 'package:learningdart/shared/app_secret.dart';
-import 'package:learningdart/features/data/profile/user_service.dart';
 
 class ProfileScreen extends ConsumerStatefulWidget {
   const ProfileScreen({Key? key}) : super(key: key);
