@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
+//import 'package:flutter/services.dart';
 import 'dart:core';
 import 'dart:convert';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -7,6 +7,7 @@ import 'package:learningdart/features/screens/fuel_entries/distance_info.dart';
 import 'package:learningdart/features/screens/fuel_entries/fuel_card_subtitle.dart';
 import 'package:learningdart/features/screens/fuel_entries/fuel_card_title.dart';
 import 'package:learningdart/model/fuel_model.dart';
+import 'package:flutter/services.dart' show rootBundle;
 
 class FuelEntryScreen extends ConsumerStatefulWidget {
   const FuelEntryScreen({Key? key}) : super(key: key);
@@ -15,17 +16,19 @@ class FuelEntryScreen extends ConsumerStatefulWidget {
 }
 
 Future<String> _loadFuelLogs() async {
-  return await rootBundle.loadString('fuelLog.json');
+  return await rootBundle.loadString('assets/fuelLog.json');
 }
 
 Future<FuelModel> getFuelLogs() async {
   String jsonFuelData = await _loadFuelLogs();
+  print(jsonFuelData);
+  print(parseResponseBody(jsonFuelData));
   return FuelModel.fromJson(parseResponseBody(jsonFuelData));
 }
 
 Map<String, dynamic> parseResponseBody(response) {
-  if (response.statusCode == 200) {
-    return jsonDecode(response.body) as Map<String, dynamic>;
+  if (true) {
+    return jsonDecode(response) as Map<String, dynamic>;
   } else if (response.statusCode == 404) {
     throw Exception('Wrong creds');
   } else if (response.statusCode == 401) {
@@ -46,41 +49,58 @@ class _FuelEntryScreen extends ConsumerState<FuelEntryScreen> {
         title: const Text('Mileage log'),
         backgroundColor: Colors.purple,
       ),
-      body: ListView.builder(
-          itemCount: 2,
-          itemBuilder: (context, index) {
-            return Padding(
-                padding: EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
-                child: Container(height: 150, child: FuelCard()));
-          }
-          // ,
-          // Padding(
-          //   padding: const EdgeInsets.all(16.0),
-          //   child: Text(
-          //     'Greyhound divisively hello coldly wonderfully marginally far upon excluding.',
-          //     style: TextStyle(color: Colors.black.withOpacity(0.6)),
-          //   ),
-          // ),
-          // ButtonBar(
-          //   alignment: MainAxisAlignment.start,
-          //   children: [
-          //     ElevatedButton(
-          //       child: Text(
-          //         'Click Me',
-          //         style: TextStyle(color: Colors.white),
-          //       ),
-          //       onPressed: () {},
-          //     ),
-          //     ElevatedButton(
-          //       child: Text(
-          //         'Click Me',
-          //         style: TextStyle(color: Colors.white),
-          //       ),
-          //       onPressed: () {},
-          //     ),
-          //   ],
-          // ),
-          ),
+      body: FutureBuilder<FuelModel>(
+          future: getFuelLogs(),
+          builder: (context, snapshot) {
+            if (snapshot.connectionState == ConnectionState.waiting) {
+              return const Center(
+                child: Text(
+                  'Loading...',
+                  style: TextStyle(
+                      color: Color.fromARGB(255, 38, 103, 55), fontSize: 20),
+                ),
+              );
+            } else if (snapshot.connectionState == ConnectionState.done) {
+              if (snapshot.hasError) {
+                print(snapshot.error);
+                return const Center(
+                  child: Text(
+                    'Something went wrong, please try again',
+                    style: TextStyle(
+                        color: Color.fromARGB(255, 24, 8, 69), fontSize: 16),
+                  ),
+                );
+              } else if (snapshot.hasData) {
+                final fuelData = snapshot.data!;
+                print(fuelData.data);
+                return ListView.builder(
+                    itemCount: 2,
+                    itemBuilder: (context, index) {
+                      if (fuelData.data) {
+                        var fuelObj = fuelData.data[index];
+                      } else {
+                        var fuelObj = null;
+                      }
+
+                      return Padding(
+                          padding: EdgeInsets.symmetric(
+                              horizontal: 16.0, vertical: 8.0),
+                          child:
+                              Container(height: 150, child: FuelCard(fuelObj)));
+                    });
+              } else {
+                return const Center(
+                  child: Text(
+                    'Nothing to be shown',
+                    style: TextStyle(
+                        color: Color.fromARGB(255, 24, 8, 69), fontSize: 16),
+                  ),
+                );
+              }
+            } else {
+              return Text('State: ${snapshot.connectionState}');
+            }
+          }),
     );
   }
 }
