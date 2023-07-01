@@ -1,10 +1,38 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+import 'dart:core';
+import 'dart:convert';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:learningdart/features/screens/fuel_entries/distance_info.dart';
+import 'package:learningdart/features/screens/fuel_entries/fuel_card_subtitle.dart';
+import 'package:learningdart/features/screens/fuel_entries/fuel_card_title.dart';
+import 'package:learningdart/model/fuel_model.dart';
 
 class FuelEntryScreen extends ConsumerStatefulWidget {
   const FuelEntryScreen({Key? key}) : super(key: key);
   @override
   ConsumerState<FuelEntryScreen> createState() => _FuelEntryScreen();
+}
+
+Future<String> _loadFuelLogs() async {
+  return await rootBundle.loadString('fuelLog.json');
+}
+
+Future<FuelModel> getFuelLogs() async {
+  String jsonFuelData = await _loadFuelLogs();
+  return FuelModel.fromJson(parseResponseBody(jsonFuelData));
+}
+
+Map<String, dynamic> parseResponseBody(response) {
+  if (response.statusCode == 200) {
+    return jsonDecode(response.body) as Map<String, dynamic>;
+  } else if (response.statusCode == 404) {
+    throw Exception('Wrong creds');
+  } else if (response.statusCode == 401) {
+    throw Exception('Unauthorize');
+  } else {
+    throw Exception('Something went wrong');
+  }
 }
 
 class _FuelEntryScreen extends ConsumerState<FuelEntryScreen> {
@@ -23,81 +51,7 @@ class _FuelEntryScreen extends ConsumerState<FuelEntryScreen> {
           itemBuilder: (context, index) {
             return Padding(
                 padding: EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
-                child: Container(
-                    height: 150,
-                    child: Card(
-                      elevation: 5.0,
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(10.0),
-                      ),
-                      shadowColor: Colors.purpleAccent,
-                      child: ListTile(
-                        leading: const Icon(Icons.oil_barrel,
-                            color: Color.fromARGB(238, 53, 61, 50)),
-                        title: const Text('2023-04-04',
-                            style: TextStyle(
-                                color: Color.fromARGB(255, 24, 8, 69))),
-                        subtitle: Column(
-                          mainAxisAlignment: MainAxisAlignment.start,
-                          children: [
-                            Padding(
-                                padding: EdgeInsets.all(15),
-                                child: Row(
-                                  mainAxisAlignment: MainAxisAlignment.start,
-                                  children: [
-                                    const Icon(Icons.currency_rupee_rounded,
-                                        size: 20.0,
-                                        color: Color.fromARGB(255, 98, 56, 53)),
-                                    Text(
-                                      '848.00',
-                                      style: TextStyle(
-                                          color: Colors.black.withOpacity(0.6)),
-                                    )
-                                  ],
-                                )),
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.start,
-                              children: [
-                                const Icon(Icons.water_drop,
-                                    size: 16.0,
-                                    color: Color.fromARGB(255, 108, 4, 118)),
-                                Text(
-                                  '8 ltr',
-                                  style: TextStyle(
-                                      color: Colors.black.withOpacity(0.6)),
-                                ),
-                                Text(
-                                  '105.00/ ltr',
-                                  style: TextStyle(
-                                      color: Colors.black.withOpacity(0.6)),
-                                )
-                              ],
-                            ),
-                          ],
-                        ),
-                        trailing: const Column(
-                            mainAxisAlignment: MainAxisAlignment.end,
-                            children: [
-                              Text(
-                                '6072 km',
-                                style: TextStyle(
-                                    color: Color.fromARGB(255, 24, 8, 69),
-                                    fontWeight: FontWeight.bold,
-                                    fontSize: 14),
-                              ),
-                              Padding(
-                                padding: EdgeInsets.only(right: 5, top: 5),
-                                child: Text(
-                                  '+140 km',
-                                  style: TextStyle(
-                                      color: Color.fromARGB(255, 24, 8, 69),
-                                      fontWeight: FontWeight.w100,
-                                      fontSize: 12),
-                                ),
-                              ),
-                            ]),
-                      ),
-                    )));
+                child: Container(height: 150, child: FuelCard()));
           }
           // ,
           // Padding(
@@ -128,5 +82,39 @@ class _FuelEntryScreen extends ConsumerState<FuelEntryScreen> {
           // ),
           ),
     );
+  }
+}
+
+class FuelCard extends StatelessWidget {
+  const FuelCard({
+    super.key,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Card(
+      elevation: 5.0,
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(10.0),
+      ),
+      shadowColor: Colors.purpleAccent,
+      child: const ListTile(
+        leading: FuelTileLeading(),
+        title: FuelCardTitle(),
+        subtitle: FuelCardSubtitle(),
+        trailing: DistanceInfo(),
+      ),
+    );
+  }
+}
+
+class FuelTileLeading extends StatelessWidget {
+  const FuelTileLeading({
+    super.key,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return const Icon(Icons.oil_barrel, color: Color.fromARGB(238, 53, 61, 50));
   }
 }
