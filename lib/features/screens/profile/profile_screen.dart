@@ -8,6 +8,7 @@ import 'package:learningdart/model/user_model.dart';
 import 'package:learningdart/widget/nav_drawer.dart';
 import 'package:http/http.dart' as http;
 import 'package:learningdart/shared/app_secret.dart';
+import 'package:learningdart/shared/loading_component.dart';
 
 class ProfileScreen extends ConsumerStatefulWidget {
   const ProfileScreen({Key? key}) : super(key: key);
@@ -72,13 +73,7 @@ class _ProfileScreen extends ConsumerState<ProfileScreen> {
             snapshot,
           ) {
             if (snapshot.connectionState == ConnectionState.waiting) {
-              return const Center(
-                child: Text(
-                  'Loading...',
-                  style: TextStyle(
-                      color: Color.fromARGB(255, 38, 103, 55), fontSize: 20),
-                ),
-              );
+              return const LoadingComponent();
             } else if (snapshot.connectionState == ConnectionState.done) {
               if (snapshot.hasError) {
                 print(snapshot.error);
