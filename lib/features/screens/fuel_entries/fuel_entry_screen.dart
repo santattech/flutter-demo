@@ -129,6 +129,7 @@ class FuelCard extends StatelessWidget {
         ),
         trailing: DistanceInfo(
           odometerValue: item.odometerValue,
+          betweenDistance: item.betweenDistance,
         ),
       ),
     );

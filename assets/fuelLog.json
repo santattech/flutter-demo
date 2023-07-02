@@ -8,7 +8,8 @@
             "id": 4139,
             "odometerValue": 5153,
             "cost": 106.00,
-            "quantity": 8.0
+            "quantity": 8.0,
+            "betweenDistance": 120
 
         },
         {
@@ -16,7 +17,8 @@
             "id": 5037,
             "odometerValue": 6886,
             "cost": 105.00,
-            "quantity": 7.8
+            "quantity": 7.8,
+            "betweenDistance": 140
         }
      ]
 }

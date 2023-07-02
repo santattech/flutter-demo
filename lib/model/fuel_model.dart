@@ -26,6 +26,7 @@ class Data {
   final String? fillingDate;
   final double cost;
   final double quantity;
+  final int betweenDistance;
 
   Data({
     required this.id,
@@ -33,6 +34,7 @@ class Data {
     this.fillingDate,
     required this.cost,
     required this.quantity,
+    required this.betweenDistance,
   });
 
   factory Data.fromJson(Map<String, dynamic> parsedJson) {
@@ -42,6 +44,7 @@ class Data {
       fillingDate: parsedJson['fillingDate'],
       cost: parsedJson['cost'],
       quantity: parsedJson['quantity'],
+      betweenDistance: parsedJson['betweenDistance'],
     );
   }
 }
