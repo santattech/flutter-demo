@@ -1,10 +1,9 @@
 import 'dart:core';
 import 'package:flutter/material.dart';
-import 'package:learningdart/shared/app_secret.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:learningdart/features/screens/login/login_view_model.dart';
 import 'package:learningdart/widget/submit_button.dart';
-import 'package:learningdart/screens/MyHomePage.dart';
+import 'package:learningdart/features/screens/splash/MyHomePage.dart';
 
 class LoginScreen extends ConsumerStatefulWidget {
   const LoginScreen({Key? key}) : super(key: key);

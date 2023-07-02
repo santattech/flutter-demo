@@ -3,8 +3,8 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:learningdart/features/screens/login/login_screen.dart';
 import 'package:learningdart/features/screens/profile/password_screen.dart';
 import 'package:learningdart/screens/contact_page.dart';
-import 'package:learningdart/features/screens/login/login_screen.dart';
-import 'package:learningdart/screens/splash_scree.dart';
+//import 'package:learningdart/screens/splash_scree.dart';
+import 'package:learningdart/features/screens/splash/splash_screen.dart';
 import 'package:learningdart/widget/contact_form.dart';
 import 'screens/Screen3.dart';
 
@@ -34,7 +34,7 @@ class MyApp extends StatelessWidget {
       ),
       initialRoute: '/',
       routes: {
-        '/': (context) => SplashScreen(),
+        '/': (context) => const SplashScreen(),
         '/login': (context) => const LoginScreen(),
         '/third': (context) => Screen3(),
         '/contact': (context) => const ContactPage(title: 'Contact'),
