@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:learningdart/features/screens/profile/password_screen.dart';
 import 'package:learningdart/model/user_model.dart';
+import 'package:learningdart/shared/server_error_component.dart';
 import 'package:learningdart/widget/nav_drawer.dart';
 import 'package:http/http.dart' as http;
 import 'package:learningdart/shared/app_secret.dart';
@@ -77,13 +78,7 @@ class _ProfileScreen extends ConsumerState<ProfileScreen> {
             } else if (snapshot.connectionState == ConnectionState.done) {
               if (snapshot.hasError) {
                 print(snapshot.error);
-                return const Center(
-                  child: Text(
-                    'Something went wrong, please try again',
-                    style: TextStyle(
-                        color: Color.fromARGB(255, 24, 8, 69), fontSize: 16),
-                  ),
-                );
+                return const ServerErrorComponent();
               } else if (snapshot.hasData) {
                 final data = snapshot.data!;
                 email = data.email;

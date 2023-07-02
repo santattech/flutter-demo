@@ -73,6 +73,7 @@ flutter:
     - images/sideMenu.png
     - assets/fuelLog.json
     - assets/circles-menu-1.gif
+    - assets/icons8-error.gif
     # - images/a_dot_ham.jpeg
 
   # An image asset can refer to one or more resolution-specific "variants", see
