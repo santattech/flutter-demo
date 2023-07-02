@@ -1,8 +1,7 @@
 //import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:learningdart/features/screens/login/login_screen.dart';
-import 'package:learningdart/features/screens/profile/password_screen.dart';
-import 'package:learningdart/screens/MyHomePage.dart';
+import 'package:learningdart/features/screens/splash/MyHomePage.dart';
 import 'package:learningdart/shared/app_secret.dart';
 
 class SplashScreen extends StatefulWidget {
@@ -13,14 +12,13 @@ class SplashScreen extends StatefulWidget {
 }
 
 class _SplashScreen extends State<SplashScreen> {
-  int splashtime = 1;
+  int splashtime = 10;
   // the above is the duration of the splash screen
 
   @override
   void initState() {
     Future.delayed(Duration(seconds: splashtime), () async {
       Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) {
-        print(AppSecret.accessToken);
         if (AppSecret.accessToken == null) {
           return const LoginScreen();
         } else {
@@ -50,25 +48,46 @@ class _SplashScreen extends State<SplashScreen> {
                         width: 500,
                         child: Image.asset('images/splashIcon.png')),
                   ),
-                  Container(
-                    margin: const EdgeInsets.only(top: 30),
-                    //margin top 30
-                    child: const Text(
-                      "We are still working",
-                      style: TextStyle(
-                        fontSize: 30,
-                        color: Colors.white,
-                      ),
-                    ),
-                  ),
-                  Container(
-                    margin: const EdgeInsets.only(top: 15),
-                    child: const Text("Version: 1.0.0",
-                        style: TextStyle(
-                          color: Colors.white24,
-                          fontSize: 20,
-                        )),
-                  ),
+                  AppVersion(),
                 ])));
+  }
+}
+
+class AppVersion extends StatelessWidget {
+  const AppVersion({
+    super.key,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      margin: const EdgeInsets.only(top: 15),
+      child: const Text("Version: 1.0.0",
+          style: TextStyle(
+            color: Colors.white24,
+            fontSize: 20,
+          )),
+    );
+  }
+}
+
+class StillWorkingMessage extends StatelessWidget {
+  const StillWorkingMessage({
+    super.key,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      margin: const EdgeInsets.only(top: 30),
+      //margin top 30
+      child: const Text(
+        "We are still working",
+        style: TextStyle(
+          fontSize: 30,
+          color: Colors.white,
+        ),
+      ),
+    );
   }
 }
