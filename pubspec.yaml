@@ -70,6 +70,7 @@ flutter:
   assets:
     - images/splashIcon.png
     - images/sideMenu.png
+    - assets/fuelLog.json
     # - images/a_dot_ham.jpeg
 
   # An image asset can refer to one or more resolution-specific "variants", see
