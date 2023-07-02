@@ -8,6 +8,7 @@ import 'package:learningdart/features/screens/fuel_entries/fuel_card_subtitle.da
 import 'package:learningdart/features/screens/fuel_entries/fuel_card_title.dart';
 import 'package:learningdart/model/fuel_model.dart';
 import 'package:flutter/services.dart' show rootBundle;
+import 'package:learningdart/shared/loading_component.dart';
 
 class FuelEntryScreen extends ConsumerStatefulWidget {
   const FuelEntryScreen({Key? key}) : super(key: key);
@@ -53,13 +54,7 @@ class _FuelEntryScreen extends ConsumerState<FuelEntryScreen> {
           future: getFuelLogs(),
           builder: (context, snapshot) {
             if (snapshot.connectionState == ConnectionState.waiting) {
-              return const Center(
-                child: Text(
-                  'Loading...',
-                  style: TextStyle(
-                      color: Color.fromARGB(255, 38, 103, 55), fontSize: 20),
-                ),
-              );
+              return const LoadingComponent();
             } else if (snapshot.connectionState == ConnectionState.done) {
               if (snapshot.hasError) {
                 print(snapshot.error);
