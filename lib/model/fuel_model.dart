@@ -1,10 +1,11 @@
 class FuelModel {
   final int? code;
-  final String? status;
+  final String status;
   final String? message;
-  final List<Data>? data;
+  final List<Data> data;
 
-  FuelModel({this.code, this.status, this.message, this.data});
+  FuelModel(
+      {this.code, required this.status, this.message, required this.data});
 
   factory FuelModel.fromJson(Map<String, dynamic> parsedJson) {
     var list = parsedJson['data'] as List;
@@ -20,25 +21,27 @@ class FuelModel {
 }
 
 class Data {
-  final int? id;
+  final int id;
   final int? odometerValue;
   final String? fillingDate;
-  final int? cost;
-  final int? quantity;
+  final double cost;
+  final double quantity;
 
-  Data(
-      {this.id,
-      this.odometerValue,
-      this.fillingDate,
-      this.cost,
-      this.quantity});
+  Data({
+    required this.id,
+    this.odometerValue,
+    this.fillingDate,
+    required this.cost,
+    required this.quantity,
+  });
 
   factory Data.fromJson(Map<String, dynamic> parsedJson) {
     return Data(
-        id: parsedJson['id'],
-        odometerValue: parsedJson['odometerValue'],
-        fillingDate: parsedJson['fillingDate'],
-        cost: parsedJson['cost'],
-        quantity: parsedJson['quantity']);
+      id: parsedJson['id'],
+      odometerValue: parsedJson['odometerValue'],
+      fillingDate: parsedJson['fillingDate'],
+      cost: parsedJson['cost'],
+      quantity: parsedJson['quantity'],
+    );
   }
 }

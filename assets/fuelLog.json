@@ -4,19 +4,19 @@
     "message": "The request was successful",
     "data": [
         {
-            "fillingDate": "2-23-02-02",
+            "fillingDate": "23-02-02",
             "id": 4139,
             "odometerValue": 5153,
-            "cost": 900,
-            "quantity": 8
+            "cost": 106.00,
+            "quantity": 8.0
 
         },
         {
             "fillingDate": "2023-03-04",
             "id": 5037,
             "odometerValue": 6886,
-            "cost": 390,
-            "quantity": 7
+            "cost": 105.00,
+            "quantity": 7.8
         }
      ]
 }

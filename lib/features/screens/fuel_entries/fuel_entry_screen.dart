@@ -21,7 +21,7 @@ Future<String> _loadFuelLogs() async {
 
 Future<FuelModel> getFuelLogs() async {
   String jsonFuelData = await _loadFuelLogs();
-  print(jsonFuelData);
+
   print(parseResponseBody(jsonFuelData));
   return FuelModel.fromJson(parseResponseBody(jsonFuelData));
 }
@@ -71,22 +71,22 @@ class _FuelEntryScreen extends ConsumerState<FuelEntryScreen> {
                   ),
                 );
               } else if (snapshot.hasData) {
-                final fuelData = snapshot.data!;
-                print(fuelData.data);
-                return ListView.builder(
-                    itemCount: 2,
-                    itemBuilder: (context, index) {
-                      if (fuelData.data) {
-                        var fuelObj = fuelData.data[index];
-                      } else {
-                        var fuelObj = null;
-                      }
+                final fuelData = snapshot.data;
+                var listOfItems = fuelData?.data as List;
+                int itemCount = listOfItems.length;
+                if (fuelData?.data != null) {
+                  print(fuelData?.data.length);
+                }
 
+                return ListView.builder(
+                    itemCount: itemCount,
+                    itemBuilder: (context, index) {
                       return Padding(
-                          padding: EdgeInsets.symmetric(
+                          padding: const EdgeInsets.symmetric(
                               horizontal: 16.0, vertical: 8.0),
-                          child:
-                              Container(height: 150, child: FuelCard(fuelObj)));
+                          child: Container(
+                              height: 150,
+                              child: FuelCard(item: listOfItems[index])));
                     });
               } else {
                 return const Center(
@@ -108,7 +108,9 @@ class _FuelEntryScreen extends ConsumerState<FuelEntryScreen> {
 class FuelCard extends StatelessWidget {
   const FuelCard({
     super.key,
+    required this.item,
   });
+  final item;
 
   @override
   Widget build(BuildContext context) {
@@ -118,11 +120,16 @@ class FuelCard extends StatelessWidget {
         borderRadius: BorderRadius.circular(10.0),
       ),
       shadowColor: Colors.purpleAccent,
-      child: const ListTile(
-        leading: FuelTileLeading(),
-        title: FuelCardTitle(),
-        subtitle: FuelCardSubtitle(),
-        trailing: DistanceInfo(),
+      child: ListTile(
+        leading: const FuelTileLeading(),
+        title: FuelCardTitle(title: item.fillingDate),
+        subtitle: FuelCardSubtitle(
+          quantity: item.quantity,
+          cost: item.cost,
+        ),
+        trailing: DistanceInfo(
+          odometerValue: item.odometerValue,
+        ),
       ),
     );
   }
