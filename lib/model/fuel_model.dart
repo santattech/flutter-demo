@@ -1,50 +1,61 @@
 class FuelModel {
-  final int? code;
-  final String status;
-  final String? message;
   final List<Data> data;
 
-  FuelModel(
-      {this.code, required this.status, this.message, required this.data});
+  FuelModel({required this.data});
 
   factory FuelModel.fromJson(Map<String, dynamic> parsedJson) {
     var list = parsedJson['data'] as List;
     // print(list.runtimeType);
     List<Data> dataList = list.map((i) => Data.fromJson(i)).toList();
 
-    return FuelModel(
-        code: parsedJson['code'],
-        status: parsedJson['status'],
-        message: parsedJson['message'],
-        data: dataList);
+    return FuelModel(data: dataList);
   }
 }
 
 class Data {
-  final int id;
-  final int? odometerValue;
-  final String? fillingDate;
-  final double cost;
-  final double quantity;
-  final int betweenDistance;
+  final String id;
+  final String type;
+  final Attributes attributes;
 
   Data({
     required this.id,
-    this.odometerValue,
-    this.fillingDate,
-    required this.cost,
-    required this.quantity,
-    required this.betweenDistance,
+    required this.type,
+    required this.attributes,
   });
 
   factory Data.fromJson(Map<String, dynamic> parsedJson) {
+    var attrJson = Attributes.fromJson(parsedJson['attributes']);
+
     return Data(
       id: parsedJson['id'],
-      odometerValue: parsedJson['odometerValue'],
-      fillingDate: parsedJson['fillingDate'],
-      cost: parsedJson['cost'],
+      type: parsedJson['type'],
+      attributes: attrJson,
+    );
+  }
+}
+
+class Attributes {
+  final int odometer;
+  final String entryDate;
+  final String? quantity;
+  final String price;
+  final String totalPrice;
+
+  Attributes({
+    required this.odometer,
+    required this.entryDate,
+    required this.price,
+    required this.quantity,
+    required this.totalPrice,
+  });
+
+  factory Attributes.fromJson(Map<String, dynamic> parsedJson) {
+    return Attributes(
+      odometer: parsedJson['odometer'],
+      entryDate: parsedJson['entryDate'],
+      price: parsedJson['price'],
       quantity: parsedJson['quantity'],
-      betweenDistance: parsedJson['betweenDistance'],
+      totalPrice: parsedJson['totalPrice'],
     );
   }
 }
