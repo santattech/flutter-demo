@@ -69,16 +69,12 @@ class _FuelEntryScreen extends ConsumerState<FuelEntryScreen> {
                 final fuelData = snapshot.data;
                 var listOfItems = fuelData?.data as List;
                 int itemCount = listOfItems.length;
-                if (fuelData?.data != null) {
-                  print(fuelData?.data.length);
-                }
 
                 return ListView.builder(
                     itemCount: itemCount,
                     itemBuilder: (context, index) {
                       var singleData = listOfItems[index];
                       var singleDataAttributes = singleData.attributes;
-                      print(singleDataAttributes);
 
                       return Padding(
                           padding: const EdgeInsets.symmetric(
@@ -125,6 +121,7 @@ class FuelCard extends StatelessWidget {
         subtitle: FuelCardSubtitle(
           quantity: item.quantity,
           cost: item.price,
+          totalPrice: item.totalPrice,
         ),
         trailing: DistanceInfo(
           odometerValue: item.odometer,

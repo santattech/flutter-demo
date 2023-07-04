@@ -4,7 +4,6 @@ import 'package:learningdart/features/screens/fuel_entries/fuel_entry_screen.dar
 import 'package:learningdart/features/screens/login/login_screen.dart';
 import 'package:learningdart/features/screens/profile/password_screen.dart';
 import 'package:learningdart/screens/contact_page.dart';
-//import 'package:learningdart/screens/splash_scree.dart';
 import 'package:learningdart/features/screens/splash/splash_screen.dart';
 import 'package:learningdart/widget/contact_form.dart';
 import 'screens/Screen3.dart';

@@ -9,9 +9,10 @@ class AppSecret {
     'message': 'Access denied'
   };
 
-  static const loginUrl = 'http://localhost:3000/api/v1/user_sessions';
-  static const getUserUrl =
-      'http://localhost:3000/api/v1/user_sessions/get_user';
+  static const baseUrl = 'http://192.168.1.11:3000';
+  static const loginUrl = '${baseUrl}/api/v1/user_sessions';
+  static const getUserUrl = '${baseUrl}/api/v1/user_sessions/get_user';
   static const resetPasswordUrl =
-      'http://localhost:3000/api/v1/user_sessions/reset_password';
+      '${baseUrl}/api/v1/user_sessions/reset_password';
+  static const getFuelLogsUrl = '${baseUrl}/api/v1/fuel_entries';
 }

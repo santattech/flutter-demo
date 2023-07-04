@@ -5,16 +5,17 @@ class FuelCardSubtitle extends StatelessWidget {
     super.key,
     required this.quantity,
     required this.cost,
+    required this.totalPrice,
   });
 
-  final double quantity;
-  final double cost;
+  final String quantity;
+  final String cost;
+  final String totalPrice;
 
   @override
   Widget build(BuildContext context) {
     var formattedQuantity = '$quantity ltr';
     var formattedPrice = '$cost/ ltr';
-    double totalCost = quantity * cost;
 
     return Column(
       mainAxisAlignment: MainAxisAlignment.start,
@@ -27,7 +28,7 @@ class FuelCardSubtitle extends StatelessWidget {
                 const Icon(Icons.currency_rupee_rounded,
                     size: 20.0, color: Color.fromARGB(255, 98, 56, 53)),
                 Text(
-                  totalCost.toString(),
+                  totalPrice,
                   style: TextStyle(color: Colors.black.withOpacity(0.6)),
                 )
               ],
