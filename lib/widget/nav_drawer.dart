@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:learningdart/features/screens/splash/MyHomePage.dart';
 import 'package:learningdart/shared/app_secret.dart';
 import 'package:learningdart/features/screens/login/login_screen.dart';
 import 'package:learningdart/features/screens/profile/profile_screen.dart';
@@ -24,7 +25,7 @@ class NavDrawer extends StatelessWidget {
           ListTile(
             leading: const Icon(Icons.input),
             title: const Text('Home'),
-            onTap: () => {},
+            onTap: () => {redirectToHome(context)},
           ),
           ListTile(
             leading: const Icon(Icons.verified_user),
@@ -52,6 +53,12 @@ class NavDrawer extends StatelessWidget {
   }
 }
 
+void redirectToHome(context) {
+  Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) {
+    return const MyHomePage(title: 'Home');
+  }));
+}
+
 void redirectToLogin(context) {
   AppSecret.accessToken = null;
 
@@ -62,6 +69,6 @@ void redirectToLogin(context) {
 
 void redirectToProfile(context) {
   Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) {
-    return ProfileScreen();
+    return const ProfileScreen();
   }));
 }

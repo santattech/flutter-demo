@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:learningdart/features/screens/fuel_entries/fuel_entry_screen.dart';
 import 'package:learningdart/widget/nav_drawer.dart';
 
 class MyHomePage extends StatefulWidget {
@@ -39,16 +40,20 @@ class _MyHomePageState extends State<MyHomePage> {
                 margin: const EdgeInsets.all(20),
                 child: TextButton(
                   child: Container(
-                    color: Colors.black,
+                    color: Colors.purpleAccent,
                     padding: const EdgeInsets.all(10),
-                    child: const Text('Go to Contact',
+                    child: const Text('Go to Mileage log',
                         style: TextStyle(
                           fontSize: 20,
                           color: Colors.white,
                         )),
                   ),
                   onPressed: () {
-                    Navigator.pushNamed(context, '/contact');
+                    //Navigator.of(context).pushNamed('/fuel_entry');
+                    Navigator.pushReplacement(context,
+                        MaterialPageRoute(builder: (context) {
+                      return const FuelEntryScreen();
+                    }));
                   },
                 ),
               ),

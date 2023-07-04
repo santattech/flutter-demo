@@ -69,19 +69,19 @@ class _FuelEntryScreen extends ConsumerState<FuelEntryScreen> {
                 final fuelData = snapshot.data;
                 var listOfItems = fuelData?.data as List;
                 int itemCount = listOfItems.length;
-                if (fuelData?.data != null) {
-                  print(fuelData?.data.length);
-                }
 
                 return ListView.builder(
                     itemCount: itemCount,
                     itemBuilder: (context, index) {
+                      var singleData = listOfItems[index];
+                      var singleDataAttributes = singleData.attributes;
+
                       return Padding(
                           padding: const EdgeInsets.symmetric(
                               horizontal: 16.0, vertical: 8.0),
                           child: Container(
                               height: 150,
-                              child: FuelCard(item: listOfItems[index])));
+                              child: FuelCard(item: singleDataAttributes)));
                     });
               } else {
                 return const Center(
@@ -117,14 +117,15 @@ class FuelCard extends StatelessWidget {
       shadowColor: Colors.purpleAccent,
       child: ListTile(
         leading: const FuelTileLeading(),
-        title: FuelCardTitle(title: item.fillingDate),
+        title: FuelCardTitle(title: item.entryDate),
         subtitle: FuelCardSubtitle(
           quantity: item.quantity,
-          cost: item.cost,
+          cost: item.price,
+          totalPrice: item.totalPrice,
         ),
         trailing: DistanceInfo(
-          odometerValue: item.odometerValue,
-          betweenDistance: item.betweenDistance,
+          odometerValue: item.odometer,
+          betweenDistance: 100,
         ),
       ),
     );

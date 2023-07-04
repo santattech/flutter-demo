@@ -1,24 +1,59 @@
 {
-    "status": "success",
-    "code": 200,
-    "message": "The request was successful",
     "data": [
         {
-            "fillingDate": "23-02-02",
-            "id": 4139,
-            "odometerValue": 5153,
-            "cost": 106.00,
-            "quantity": 8.0,
-            "betweenDistance": 120
-
+            "id": "1",
+            "type": "fuelEntry",
+            "attributes": {
+                "odometer": 32,
+                "quantity": "12.0",
+                "price": "85.0",
+                "entryDate": "2021-02-20",
+                "totalPrice": "1020.0"
+            }
         },
         {
-            "fillingDate": "2023-03-04",
-            "id": 5037,
-            "odometerValue": 6886,
-            "cost": 105.00,
-            "quantity": 7.8,
-            "betweenDistance": 140
+            "id": "2",
+            "type": "fuelEntry",
+            "attributes": {
+                "odometer": 178,
+                "quantity": "27.0",
+                "price": "87.0",
+                "entryDate": "2021-03-11",
+                "totalPrice": "2349.0"
+            }
+        },
+        {
+            "id": "3",
+            "type": "fuelEntry",
+            "attributes": {
+                "odometer": 677,
+                "quantity": "12.0",
+                "price": "90.0",
+                "entryDate": "2021-04-30",
+                "totalPrice": "1080.0"
+            }
+        },
+        {
+            "id": "4",
+            "type": "fuelEntry",
+            "attributes": {
+                "odometer": 860,
+                "quantity": "11.0",
+                "price": "95.0",
+                "entryDate": "2021-06-05",
+                "totalPrice": "1045.0"
+            }
+        },
+        {
+            "id": "5",
+            "type": "fuelEntry",
+            "attributes": {
+                "odometer": 990,
+                "quantity": "8.0",
+                "price": "96.0",
+                "entryDate": "2021-07-24",
+                "totalPrice": "768.0"
+            }
         }
-     ]
+    ]
 }
