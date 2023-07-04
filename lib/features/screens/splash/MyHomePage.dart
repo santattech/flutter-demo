@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:learningdart/features/screens/fuel_entries/fuel_entry_screen.dart';
 import 'package:learningdart/widget/nav_drawer.dart';
 
 class MyHomePage extends StatefulWidget {
@@ -48,7 +49,11 @@ class _MyHomePageState extends State<MyHomePage> {
                         )),
                   ),
                   onPressed: () {
-                    Navigator.of(context).pushNamed('/fuel_entry');
+                    //Navigator.of(context).pushNamed('/fuel_entry');
+                    Navigator.pushReplacement(context,
+                        MaterialPageRoute(builder: (context) {
+                      return const FuelEntryScreen();
+                    }));
                   },
                 ),
               ),
