@@ -9,6 +9,7 @@ import 'package:learningdart/features/screens/fuel_entries/fuel_card_title.dart'
 import 'package:learningdart/model/fuel_model.dart';
 import 'package:flutter/services.dart' show rootBundle;
 import 'package:learningdart/shared/loading_component.dart';
+import 'package:learningdart/shared/server_error_component.dart';
 
 class FuelEntryScreen extends ConsumerStatefulWidget {
   const FuelEntryScreen({Key? key}) : super(key: key);
@@ -58,13 +59,7 @@ class _FuelEntryScreen extends ConsumerState<FuelEntryScreen> {
             } else if (snapshot.connectionState == ConnectionState.done) {
               if (snapshot.hasError) {
                 print(snapshot.error);
-                return const Center(
-                  child: Text(
-                    'Something went wrong, please try again',
-                    style: TextStyle(
-                        color: Color.fromARGB(255, 24, 8, 69), fontSize: 16),
-                  ),
-                );
+                return const ServerErrorComponent();
               } else if (snapshot.hasData) {
                 final fuelData = snapshot.data;
                 var listOfItems = fuelData?.data as List;
