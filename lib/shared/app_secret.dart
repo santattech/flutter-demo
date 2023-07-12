@@ -9,7 +9,7 @@ class AppSecret {
     'message': 'Access denied'
   };
 
-  static const baseUrl = 'http://192.168.1.11:3000';
+  static const baseUrl = 'http://localhost:3000';
   static const loginUrl = '${baseUrl}/api/v1/user_sessions';
   static const getUserUrl = '${baseUrl}/api/v1/user_sessions/get_user';
   static const resetPasswordUrl =

@@ -9,6 +9,9 @@ import 'package:learningdart/features/screens/fuel_entries/fuel_card_title.dart'
 import 'package:learningdart/model/fuel_model.dart';
 import 'package:flutter/services.dart' show rootBundle;
 import 'package:learningdart/shared/loading_component.dart';
+import 'package:learningdart/widget/nav_drawer.dart';
+import 'package:http/http.dart' as http;
+import 'package:learningdart/shared/app_secret.dart';
 
 class FuelEntryScreen extends ConsumerStatefulWidget {
   const FuelEntryScreen({Key? key}) : super(key: key);
@@ -16,24 +19,44 @@ class FuelEntryScreen extends ConsumerStatefulWidget {
   ConsumerState<FuelEntryScreen> createState() => _FuelEntryScreen();
 }
 
-Future<String> _loadFuelLogs() async {
-  return await rootBundle.loadString('assets/fuelLog.json');
-}
+//********** This code snippet can be useful when you replace the API with hard coded JSON ************* */
+// Future<String> _loadFuelLogs() async {
+//   return await rootBundle.loadString('assets/fuelLog.json');
+// }
+
+// Future<FuelModel> getFuelLogs() async {
+//   String jsonFuelData = await _loadFuelLogs();
+
+//   print(parseResponseBody(jsonFuelData));
+//   return FuelModel.fromJson(parseResponseBody(jsonFuelData));
+// }
+//********** End of the hard coded JSON code snippet ************* */
 
 Future<FuelModel> getFuelLogs() async {
-  String jsonFuelData = await _loadFuelLogs();
+  // call the getFuelLogs API
+  const String apiUrl = AppSecret.getFuelLogsUrl;
+  Map<String, String> headerData = {
+    "Content-Type": 'application/json',
+    'Authorization': AppSecret.accessToken,
+  };
 
-  print(parseResponseBody(jsonFuelData));
-  return FuelModel.fromJson(parseResponseBody(jsonFuelData));
+  try {
+    http.Response response =
+        await http.get(Uri.parse(apiUrl), headers: headerData);
+
+    return FuelModel.fromJson(parseResponseBody(response));
+  } catch (e) {
+    rethrow;
+  }
 }
 
-Map<String, dynamic> parseResponseBody(response) {
-  if (true) {
-    return jsonDecode(response) as Map<String, dynamic>;
+Map<String, dynamic> parseResponseBody(http.Response response) {
+  if (response.statusCode == 200) {
+    return jsonDecode(response.body) as Map<String, dynamic>;
   } else if (response.statusCode == 404) {
     throw Exception('Wrong creds');
   } else if (response.statusCode == 401) {
-    throw Exception('Unauthorize');
+    throw Exception('Unauthorized');
   } else {
     throw Exception('Something went wrong');
   }
@@ -46,6 +69,7 @@ class _FuelEntryScreen extends ConsumerState<FuelEntryScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      drawer: NavDrawer(),
       appBar: AppBar(
         title: const Text('Mileage log'),
         backgroundColor: Colors.purple,
@@ -57,13 +81,23 @@ class _FuelEntryScreen extends ConsumerState<FuelEntryScreen> {
               return const LoadingComponent();
             } else if (snapshot.connectionState == ConnectionState.done) {
               if (snapshot.hasError) {
-                print(snapshot.error);
-                return const Center(
-                  child: Text(
-                    'Something went wrong, please try again',
-                    style: TextStyle(
-                        color: Color.fromARGB(255, 24, 8, 69), fontSize: 16),
-                  ),
+                return Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    const Icon(
+                      Icons.error_outline,
+                      color: Colors.red,
+                      size: 60,
+                    ),
+                    Center(
+                      child: Text(
+                        'Error: ${snapshot.error}',
+                        style: const TextStyle(
+                            color: Color.fromARGB(255, 24, 8, 69),
+                            fontSize: 16),
+                      ),
+                    )
+                  ],
                 );
               } else if (snapshot.hasData) {
                 final fuelData = snapshot.data;
