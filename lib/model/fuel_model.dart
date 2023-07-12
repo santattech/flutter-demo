@@ -36,16 +36,16 @@ class Data {
 
 class Attributes {
   final int odometer;
-  final String entryDate;
-  final String? quantity;
+  final String quantity;
   final String price;
+  final String entryDate;
   final String totalPrice;
 
   Attributes({
     required this.odometer,
-    required this.entryDate,
-    required this.price,
     required this.quantity,
+    required this.price,
+    required this.entryDate,
     required this.totalPrice,
   });
 

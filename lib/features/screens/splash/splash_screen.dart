@@ -24,7 +24,7 @@ class SplashScreen extends StatelessWidget {
               size: 50,
             ),
             nextScreen: AppSecret.accessToken == null
-                ? const LoginScreen()
+                ? const FuelEntryScreen()
                 : const MyHomePage(title: 'Home'),
             splashTransition: SplashTransition.fadeTransition,
             pageTransitionType: PageTransitionType.fade,
