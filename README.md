@@ -14,6 +14,12 @@ You can use the VS code with the flutter extension.
 Also you can try https://flutterlab.io, you can integrate Github with this online tool.
 ![image](https://github.com/santattech/flutter-demo/assets/1919373/57e57196-a49d-441d-ae23-d0c0262f1cef)
 
+### How to run server
+`flutter run`, It will open the flutter project in chrome or edge or window.
+or `flutter run --debug`
+🔥  To hot restart changes while running, press "r" or "R".
+For a more detailed help message, press "h". To quit, press "q".
+
 ### How to add different fonts
 https://github.com/santattech/flutter-demo/pull/8/files
 
